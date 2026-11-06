@@ -10,7 +10,9 @@ export const SITE = {
   // Lien d'invitation Discord (membres fondateurs). Vide = bouton masqué.
   discord: '',
   address: {
-    street: '319, rue De la Montagne',
+    street: 'rue De la Montagne',
+    // Numéro civique volontairement omis sur le site (décision de J-F, nov. 2026).
+    number: '319',
     city: 'Montréal',
     region: 'QC',
     postal: 'H3C 0S6',
@@ -18,7 +20,7 @@ export const SITE = {
   },
   geo: { lat: 45.49237, lng: -73.56398 },
   mapUrl:
-    'https://www.google.com/maps/search/?api=1&query=319+rue+De+la+Montagne%2C+Montr%C3%A9al%2C+QC+H3C+0S6',
+    'https://www.google.com/maps/search/?api=1&query=rue+De+la+Montagne+%26+rue+William%2C+Montr%C3%A9al%2C+QC',
   // Logos : exports officiels (60 - Marque/Infographie/Logo), utilisés tels quels,
   // seulement recadrés. Jamais recréés ni recolorés. À remplacer par les SVG maîtres.
   // En-tête : Théo et le wordmark complet « Le Repaire du Collectionneur », placés côte à côte

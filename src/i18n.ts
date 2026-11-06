@@ -46,7 +46,7 @@ const fr = {
   home: {
     title: 'Le Repaire du Collectionneur | Cartes, jeux et pièces de collection à Griffintown',
     description:
-      'Boutique de cartes sportives, de jeux de cartes à collectionner, de jeux et de pièces de collection au 319, rue De la Montagne, à Griffintown. Ouverture au printemps 2027.',
+      'Boutique de cartes sportives, de jeux de cartes à collectionner, de jeux et de pièces de collection rue De la Montagne, à Griffintown. Ouverture au printemps 2027.',
     status: 'Ouverture au printemps 2027, à Griffintown',
     lead: 'Chaque objet raconte une histoire,',
     leadSub: 'de McCord à de\u00a0la\u00a0Montagne.',
@@ -112,7 +112,7 @@ const fr = {
   visit: {
     title: 'Nous trouver | Le Repaire du Collectionneur',
     description:
-      'Le Repaire du Collectionneur : 319, rue De la Montagne, Griffintown, Montréal. Entre le canal de Lachine et le Centre Bell.',
+      'Le Repaire du Collectionneur : rue De la Montagne, Griffintown, Montréal. Entre le canal de Lachine et le Centre Bell.',
     heading: 'Nous trouver',
     intro: 'Entre le canal de Lachine et le Centre Bell, à deux pas de l’ÉTS.',
     addressLabel: 'Adresse',
@@ -155,7 +155,7 @@ const en: typeof fr = {
   home: {
     title: 'Le Repaire du Collectionneur | Cards, games and collectibles in Griffintown',
     description:
-      'Sports cards, trading card games, board games and collectibles at 319 De la Montagne Street in Griffintown, Montréal. Opening spring 2027.',
+      'Sports cards, trading card games, board games and collectibles on De la Montagne Street in Griffintown, Montréal. Opening spring 2027.',
     status: 'Opening spring 2027, in Griffintown',
     lead: 'Every object tells a story,',
     leadSub: 'from McCord to De\u00a0la\u00a0Montagne.',
@@ -220,7 +220,7 @@ const en: typeof fr = {
   visit: {
     title: 'Visit | Le Repaire du Collectionneur',
     description:
-      'Le Repaire du Collectionneur: 319 De la Montagne Street, Griffintown, Montréal. Between the Lachine Canal and the Bell Centre.',
+      'Le Repaire du Collectionneur: De la Montagne Street, Griffintown, Montréal. Between the Lachine Canal and the Bell Centre.',
     heading: 'Visit',
     intro: 'Between the Lachine Canal and the Bell Centre, steps from ÉTS.',
     addressLabel: 'Address',

@@ -53,7 +53,7 @@ const jsonLd = {
       currenciesAccepted: 'CAD',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: SITE.address.street,
+        streetAddress: `${SITE.address.number}, ${SITE.address.street}`,
         addressLocality: SITE.address.city,
         addressRegion: SITE.address.region,
         postalCode: SITE.address.postal,
