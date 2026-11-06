@@ -55,7 +55,7 @@ const fr = {
     ctaVisit: 'Nous trouver',
     facadeLabel: 'Illustration de la devanture du Repaire, rue De la Montagne, le soir',
     bandTitle: 'Achat · Vente · Échange',
-    bandText: 'À l’ouverture, on rachète aussi : cartes à l’unité, lots et collections entières.',
+    bandText: 'On rachète aussi : cartes à l’unité, lots et collections.',
     comingTitle: 'Ce qui s’en vient',
     cards: [
       {
@@ -164,7 +164,7 @@ const en: typeof fr = {
     ctaVisit: 'Find us',
     facadeLabel: 'Illustration of the Le Repaire storefront on De la Montagne Street, at night',
     bandTitle: 'Buy · Sell · Trade',
-    bandText: 'Once we open, we buy too: singles, lots and whole collections.',
+    bandText: 'We buy too: singles, lots and collections.',
     comingTitle: 'What’s coming',
     cards: [
       {
