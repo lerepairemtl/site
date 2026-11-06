@@ -213,11 +213,17 @@ main {
   padding-bottom: 10px;
 }
 .brand {
-  display: block;
-  margin-left: -8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: -6px;
 }
-.brand img {
-  height: 62px;
+.brand .theo {
+  height: 66px;
+  width: auto;
+}
+.brand .wordmark {
+  height: 52px;
   width: auto;
 }
 .site-nav {
@@ -705,8 +711,14 @@ main {
   body {
     font-size: 16px;
   }
-  .brand img {
-    height: 54px;
+  .brand .theo {
+    height: 56px;
+  }
+  .brand .wordmark {
+    height: 44px;
+  }
+  .brand {
+    gap: 13px;
   }
   .site-nav {
     gap: 2px 20px;

@@ -21,7 +21,10 @@ export const SITE = {
     'https://www.google.com/maps/search/?api=1&query=319+rue+De+la+Montagne%2C+Montr%C3%A9al%2C+QC+H3C+0S6',
   // Logos : exports officiels (60 - Marque/Infographie/Logo), utilisés tels quels,
   // seulement recadrés. Jamais recréés ni recolorés. À remplacer par les SVG maîtres.
-  logoHeader: '/assets/logo/LeRepaire_H_Theo_Hat_OnyxBG_v1.png',
+  // En-tête : Théo et le wordmark complet « Le Repaire du Collectionneur », placés côte à côte
+  // avec un peu plus d'air que dans le logo horizontal (ajustement autorisé par J-F, nov. 2026).
+  logoTheo: '/assets/logo/LeRepaire_Theo_Hat_OnyxBG_v1.png',
+  logoWordmark: '/assets/logo/LeRepaire_DC_W_OnyxBG_v1.png',
   theoGuette: '/assets/logo/LeRepaire_Theo_Watch_OnyxBG_v1.png',
   // Jeton Cloudflare Web Analytics (mesure sans cookies). Vide = aucune mesure.
   cfAnalyticsToken: '',
