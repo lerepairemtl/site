@@ -2,6 +2,7 @@
 title: "Exemple : un arrivage en boutique"
 date: 2026-11-04
 categorie: arrivage
+famille: jcc
 resume: "Gabarit d'un arrivage : une photo, deux lignes, et c'est publié."
 draft: true
 ---

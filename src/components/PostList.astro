@@ -1,28 +1,21 @@
 ---
-import { categories, postPath, t, type Lang } from '../i18n';
-import { formatDate, type Post } from '../lib/posts';
+import Tags from './Tags.astro';
+import { postPath, type Lang } from '../i18n';
+import type { Post } from '../lib/posts';
 
 interface Props {
   lang: Lang;
   posts: Post[];
 }
 const { lang, posts } = Astro.props;
-const s = t(lang);
 ---
 
 <ul class="posts">
   {
     posts.map(({ slug, entry }) => (
-      <li class="post-row">
+      <li class="post-row" data-fam={entry.data.famille}>
         <a href={postPath(lang, slug)}>
-          <div class="post-meta">
-            <span class="tag">{categories[entry.data.categorie][lang]}</span>
-            {entry.data.univers && <span class="label">{entry.data.univers}</span>}
-            <time class="label" datetime={entry.data.date.toISOString().slice(0, 10)}>
-              {formatDate(entry.data.date, lang)}
-            </time>
-            {entry.data.draft && <span class="tag draft">{s.news.draft}</span>}
-          </div>
+          <Tags lang={lang} data={entry.data} />
           <h3>{entry.data.title}</h3>
           <p>{entry.data.resume}</p>
         </a>

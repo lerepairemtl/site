@@ -12,14 +12,16 @@ const other: Lang = lang === 'fr' ? 'en' : 'fr';
 ---
 
 <Base lang={lang} title={s.privacy.title} description={s.privacy.description} altPath={routes.privacy[other]} current="privacy">
-  <div class="wrap plain">
+  <div class="wrap">
     <header class="page-head">
       <h1>{s.privacy.heading}</h1>
     </header>
+  </div>
+  <div class="wrap page-body plain">
     {s.privacy.paragraphs.map((p) => <p>{p}</p>)}
     <p>
       {s.privacy.contact}
-      <a href={`mailto:${SITE.email}`} style="color:var(--gold-bright)">{SITE.email}</a>
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
     </p>
   </div>
 </Base>

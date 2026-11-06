@@ -23,6 +23,16 @@ export const categories = {
   nouvelle: { fr: 'Nouvelle', en: 'News' },
 } as const;
 
+export const familles = {
+  sport: { fr: 'Cartes sportives', en: 'Sports cards' },
+  jcc: { fr: 'JCC', en: 'TCG' },
+  briques: { fr: 'Briques et maquettes', en: 'Bricks and model kits' },
+  jeux: { fr: 'Jeux de société', en: 'Board games' },
+  collection: { fr: 'Pièces de collection', en: 'Collectibles' },
+} as const;
+
+export type Famille = keyof typeof familles;
+
 const fr = {
   nav: { news: 'Nouvelles', releases: 'Sorties', shop: 'Boutique', visit: 'Nous trouver' },
   navLabel: 'Navigation principale',
@@ -37,28 +47,40 @@ const fr = {
     title: 'Le Repaire du Collectionneur | Cartes, jeux et pièces de collection à Griffintown',
     description:
       'Boutique de cartes sportives, de jeux de cartes à collectionner, de jeux et de pièces de collection au 319, rue De la Montagne, à Griffintown. Ouverture au printemps 2027.',
+    status: 'Ouverture au printemps 2027, à Griffintown',
     lead: 'Chaque objet raconte une histoire,',
-    leadAccent: 'de McCord à de\u00a0la\u00a0Montagne.',
+    leadSub: 'de McCord à de\u00a0la\u00a0Montagne.',
     body: 'Le Repaire, c’est là où on se retrouve. Entre nous, et un peu avec soi.',
-    comingEyebrow: 'Ce qui s’en vient',
+    ctaFollow: 'Suivre sur Instagram',
+    ctaVisit: 'Nous trouver',
+    fanLabel: 'Ce qu’on trouve au Repaire',
+    fan: [
+      { fam: 'sport', name: 'Sport', text: 'Hockey, baseball, basket, soccer, F1' },
+      { fam: 'jcc', name: 'JCC', text: 'Scellé et cartes à l’unité' },
+      { fam: 'briques', name: 'Briques', text: 'Ensembles et maquettes à assembler' },
+      { fam: 'jeux', name: 'Jeux', text: 'Pour l’apéro et les longues soirées' },
+      { fam: 'collection', name: 'Collection', text: 'Mémorabilia, vintage et trouvailles' },
+    ],
+    bandTitle: 'Achat · Vente · Échange',
+    bandText: 'À l’ouverture, on rachète aussi : cartes à l’unité, lots et collections entières.',
+    comingTitle: 'Ce qui s’en vient',
     cards: [
       {
         title: 'La boutique',
-        text: 'Cartes sportives, jeux de cartes à collectionner, jeux de société, briques et pièces de collection, au coin de William et De la Montagne.',
-      },
-      {
-        title: 'Achat, vente, échange',
-        text: 'On rachète aussi. Cartes à l’unité, lots et collections : apportez-les, on regarde ça ensemble.',
+        text: 'Au coin de William et De la Montagne, entre le canal de Lachine et le Centre Bell. Ouverture au printemps 2027.',
       },
       {
         title: 'Le cercle',
         text: 'Des tables pour jouer, des soirées pour se retrouver, et un premier cercle de membres avant même l’ouverture.',
       },
+      {
+        title: 'En ligne',
+        text: 'La boutique en ligne ouvre en même temps que le magasin : même inventaire, cueillette sur place.',
+      },
     ],
-    newsEyebrow: 'Dernières nouvelles',
+    newsTitle: 'Dernières nouvelles',
     newsAll: 'Toutes les nouvelles',
-    followEyebrow: 'Suivre le chantier',
-    followTitle: 'La suite se passe ici.',
+    followTitle: 'La suite se passe ici',
     followText: 'Les coulisses de l’aménagement, les premiers arrivages et la date d’ouverture.',
     instagram: 'Instagram',
     discord: 'Rejoindre le Discord',
@@ -141,28 +163,40 @@ const en: typeof fr = {
     title: 'Le Repaire du Collectionneur | Cards, games and collectibles in Griffintown',
     description:
       'Sports cards, trading card games, board games and collectibles at 319 De la Montagne Street in Griffintown, Montréal. Opening spring 2027.',
+    status: 'Opening spring 2027, in Griffintown',
     lead: 'Every object tells a story,',
-    leadAccent: 'from McCord to De\u00a0la\u00a0Montagne.',
+    leadSub: 'from McCord to De\u00a0la\u00a0Montagne.',
     body: 'Le Repaire is where we find each other. And a little of ourselves.',
-    comingEyebrow: 'What’s coming',
+    ctaFollow: 'Follow on Instagram',
+    ctaVisit: 'Find us',
+    fanLabel: 'What you’ll find at Le Repaire',
+    fan: [
+      { fam: 'sport', name: 'Sport', text: 'Hockey, baseball, basketball, soccer, F1' },
+      { fam: 'jcc', name: 'TCG', text: 'Sealed product and singles' },
+      { fam: 'briques', name: 'Bricks', text: 'Sets and model kits to build' },
+      { fam: 'jeux', name: 'Games', text: 'For drinks and long evenings' },
+      { fam: 'collection', name: 'Finds', text: 'Memorabilia, vintage and rarities' },
+    ],
+    bandTitle: 'Buy · Sell · Trade',
+    bandText: 'Once we open, we buy too: singles, lots and whole collections.',
+    comingTitle: 'What’s coming',
     cards: [
       {
         title: 'The shop',
-        text: 'Sports cards, trading card games, board games, bricks and collectibles, at the corner of William and De la Montagne.',
-      },
-      {
-        title: 'Buy, sell, trade',
-        text: 'We buy too. Singles, lots and whole collections: bring them in and we’ll look through them together.',
+        text: 'At the corner of William and De la Montagne, between the Lachine Canal and the Bell Centre. Opening spring 2027.',
       },
       {
         title: 'The circle',
         text: 'Tables to play at, evenings to gather, and a first circle of members before the doors even open.',
       },
+      {
+        title: 'Online',
+        text: 'The online shop opens the same day as the store: same inventory, in-store pickup.',
+      },
     ],
-    newsEyebrow: 'Latest news',
+    newsTitle: 'Latest news',
     newsAll: 'All news',
-    followEyebrow: 'Follow the build',
-    followTitle: 'The rest happens here.',
+    followTitle: 'The rest happens here',
     followText: 'Behind the scenes of the build-out, first arrivals and the opening date.',
     instagram: 'Instagram',
     discord: 'Join the Discord',

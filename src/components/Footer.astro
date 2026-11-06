@@ -11,16 +11,17 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
+  <img class="guette" src={SITE.theoGuette} alt="" width="1050" height="537" />
   <div class="wrap">
     <p>
-      {SITE.address.street}<br />
-      {s.district}<br />
+      {SITE.address.street}, {s.district}<br />
       <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
     </p>
     <p>
-      <a href={SITE.instagram} rel="noopener">Instagram {SITE.instagramHandle}</a><br />
+      <a href={SITE.instagram} rel="noopener">Instagram {SITE.instagramHandle}</a>
+      {' · '}
       <a href={routes.privacy[lang]}>{s.footer.privacy}</a><br />
-      © {year} {SITE.legal} {s.footer.rights}
+      © {year} {SITE.name}. {s.footer.rights}
     </p>
   </div>
 </footer>

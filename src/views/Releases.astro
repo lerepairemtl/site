@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { postPath, routes, t, type Lang } from '../i18n';
+import { familles, postPath, routes, t, type Lang } from '../i18n';
 import { getPosts, monthLabel } from '../lib/posts';
 
 interface Props {
@@ -36,6 +36,8 @@ const weekday = (d: Date) =>
       <h1>{s.releases.heading}</h1>
       <p>{s.releases.intro}</p>
     </header>
+  </div>
+  <div class="wrap page-body">
     {
       releases.length === 0 ? (
         <p class="empty">{s.releases.empty}</p>
@@ -46,13 +48,21 @@ const weekday = (d: Date) =>
             {items.map(({ slug, entry }) => {
               const d = entry.data.date_sortie!;
               return (
-                <a class="release" href={postPath(lang, slug)} data-date={d.toISOString().slice(0, 10)}>
+                <a
+                  class="release"
+                  href={postPath(lang, slug)}
+                  data-date={d.toISOString().slice(0, 10)}
+                  data-fam={entry.data.famille}
+                >
                   <span class="day">
                     {d.getUTCDate()}
                     <small>{weekday(d)}</small>
                   </span>
                   <span>
-                    {entry.data.univers && <span class="tag">{entry.data.univers}</span>}
+                    <span class="tags">
+                      {entry.data.famille && <span class="tag fam">{familles[entry.data.famille][lang]}</span>}
+                      {entry.data.univers && <span class="meta-text">{entry.data.univers}</span>}
+                    </span>
                     <h3>{entry.data.title}</h3>
                     <p>{entry.data.resume}</p>
                   </span>

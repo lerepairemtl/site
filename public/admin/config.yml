@@ -55,6 +55,18 @@ collections:
           - { label: Nouvelle, value: nouvelle }
       - { name: date, label: Date de publication, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, i18n: duplicate }
       - { name: resume, label: Résumé, hint: 'Une ou deux phrases, 240 caractères au plus. Sert aussi aux réseaux sociaux.', widget: text, pattern: ['^[\s\S]{1,240}$', '240 caractères au plus'], i18n: true }
+      - name: famille
+        label: Famille de produits
+        hint: Donne sa couleur à la publication.
+        widget: select
+        required: false
+        i18n: duplicate
+        options:
+          - { label: Cartes sportives, value: sport }
+          - { label: Jeux de cartes à collectionner, value: jcc }
+          - { label: Briques et maquettes, value: briques }
+          - { label: Jeux de société, value: jeux }
+          - { label: Pièces de collection, value: collection }
       - { name: univers, label: Univers, hint: 'Ex. Hockey, Pokémon, One Piece, Lego.', widget: string, required: false, i18n: duplicate }
       - { name: date_sortie, label: Date de sortie, hint: 'Pour une sortie seulement : place la publication dans le calendrier.', widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, required: false, default: '', i18n: duplicate }
       - { name: image, label: Image, widget: image, required: false, i18n: duplicate }

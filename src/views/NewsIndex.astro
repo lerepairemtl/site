@@ -19,6 +19,8 @@ const posts = await getPosts(lang);
       <h1>{s.news.heading}</h1>
       <p>{s.news.intro}</p>
     </header>
+  </div>
+  <div class="wrap page-body">
     {posts.length > 0 ? <PostList lang={lang} posts={posts} /> : <p class="empty">{s.news.empty}</p>}
     <a class="more" href={lang === 'fr' ? '/rss.xml' : '/en/rss.xml'}>{s.news.feed}</a>
   </div>

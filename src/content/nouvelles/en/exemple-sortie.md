@@ -2,6 +2,7 @@
 title: "Example: upcoming product name"
 date: 2026-11-05
 categorie: sortie
+famille: sport
 univers: "Hockey"
 date_sortie: 2027-04-15
 resume: "Template for a release post. One sentence on what it is and why it matters."

@@ -1,8 +1,9 @@
 ---
 import { render } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Tags from '../components/Tags.astro';
 import { SITE } from '../config';
-import { categories, postPath, routes, t, type Lang } from '../i18n';
+import { postPath, routes, t, type Lang } from '../i18n';
 import { formatDate, type Post } from '../lib/posts';
 
 interface Props {
@@ -41,23 +42,17 @@ const articleLd = {
   noindex={d.draft}
 >
   <div class="wrap">
-    <article class="article">
-      <a class="more" href={routes.news[lang]} style="margin:0 0 28px">← {s.news.back}</a>
-      <div class="post-meta">
-        <span class="tag">{categories[d.categorie][lang]}</span>
-        {d.univers && <span class="label">{d.univers}</span>}
-        <time class="label" datetime={d.date.toISOString().slice(0, 10)}>{formatDate(d.date, lang)}</time>
-        {d.draft && <span class="tag draft">{s.news.draft}</span>}
-      </div>
+    <article class="article" data-fam={d.famille}>
+      <a class="back" href={routes.news[lang]}>← {s.news.back}</a>
+      <Tags lang={lang} data={d} />
       <h1 lang={fallback ? contentLang : undefined}>{d.title}</h1>
       {fallback && <p class="notice">{s.news.fallback}</p>}
       <p class="lede" lang={fallback ? contentLang : undefined}>{d.resume}</p>
       {
         d.date_sortie && (
-          <p class="facts label">
-            <span>
-              {s.news.releaseOn} : <strong>{formatDate(d.date_sortie, lang)}</strong>
-            </span>
+          <p class="release-date">
+            <span class="mono">{s.news.releaseOn}</span>
+            <strong>{formatDate(d.date_sortie, lang)}</strong>
           </p>
         )
       }

@@ -18,6 +18,8 @@ const a = SITE.address;
       <h1>{s.visit.heading}</h1>
       <p>{s.visit.intro}</p>
     </header>
+  </div>
+  <div class="wrap page-body">
     <div class="info">
       <div>
         <h2>{s.visit.addressLabel}</h2>
@@ -25,9 +27,7 @@ const a = SITE.address;
           {a.street}<br />
           {a.city} ({a.region}) {a.postal}
         </address>
-        <div class="btn-row">
-          <a class="btn ghost" href={SITE.mapUrl} rel="noopener">{s.visit.directions}</a>
-        </div>
+        <a class="btn ghost" href={SITE.mapUrl} rel="noopener">{s.visit.directions}</a>
       </div>
       <div>
         <h2>{s.visit.hoursLabel}</h2>

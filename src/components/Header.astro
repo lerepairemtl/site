@@ -20,19 +20,8 @@ const links: { key: RouteKey; label: string }[] = [
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href={routes.home[lang]} aria-label={SITE.name}>
-      <img class="mark" src="/assets/theo-mascot-transparent.png" alt="" width="480" height="440" />
-      {
-        SITE.logoWordmark ? (
-          <img class="wordmark" src={SITE.logoWordmark} alt={SITE.name} />
-        ) : (
-          <span class="name">
-            Le Repaire
-            <br />
-            du Collectionneur
-          </span>
-        )
-      }
+    <a class="brand" href={routes.home[lang]}>
+      <img src={SITE.logoHeader} alt={SITE.short} width="1156" height="442" />
     </a>
     <nav class="site-nav" aria-label={s.navLabel}>
       {

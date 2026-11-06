@@ -1,0 +1,26 @@
+---
+import { categories, familles, t, type Lang } from '../i18n';
+import { formatDate } from '../lib/posts';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  lang: Lang;
+  data: CollectionEntry<'nouvelles'>['data'];
+  showDate?: boolean;
+}
+const { lang, data, showDate = true } = Astro.props;
+---
+
+<div class="tags">
+  <span class="tag">{categories[data.categorie][lang]}</span>
+  {data.famille && <span class="tag fam">{familles[data.famille][lang]}</span>}
+  {data.univers && <span class="meta-text">{data.univers}</span>}
+  {
+    showDate && (
+      <time class="meta-text" datetime={data.date.toISOString().slice(0, 10)}>
+        {formatDate(data.date, lang)}
+      </time>
+    )
+  }
+  {data.draft && <span class="tag draft">{t(lang).news.draft}</span>}
+</div>

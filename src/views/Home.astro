@@ -10,69 +10,92 @@ interface Props {
 }
 const { lang } = Astro.props;
 const s = t(lang);
+const h = s.home;
 const other: Lang = lang === 'fr' ? 'en' : 'fr';
 const latest = (await getPosts(lang)).slice(0, 3);
 ---
 
-<Base lang={lang} title={s.home.title} description={s.home.description} altPath={routes.home[other]} current="home">
-  <div class="wrap">
-    <section class="hero">
-      <img class="mascot" src="/assets/theo-mascot-transparent.png" alt="Théo" width="480" height="440" />
-      <h1>{s.home.lead} <span class="accent">{s.home.leadAccent}</span></h1>
-      <p class="body">{s.home.body}</p>
-      <hr class="rule" />
-      <ul class="taglines">
-        <li>{s.taglineA.map((w) => <span>{w}</span>)}</li>
-        <li>{s.taglineB.map((w) => <span>{w}</span>)}</li>
-      </ul>
-      <p class="status">
-        <strong>{s.opening}</strong>
-        <span>{SITE.address.street}, Griffintown</span>
-      </p>
-    </section>
-
-    <section class="section">
-      <p class="eyebrow">{s.home.comingEyebrow}</p>
-      <div class="cards">
+<Base lang={lang} title={h.title} description={h.description} altPath={routes.home[other]} current="home">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="hero-status mono">{h.status}</p>
+        <h1>{h.lead} <small>{h.leadSub}</small></h1>
+        <p class="hero-body">{h.body}</p>
+        <div class="btn-row">
+          <a class="btn" href={SITE.instagram} rel="noopener">{h.ctaFollow}</a>
+          <a class="btn ghost" href={routes.visit[lang]}>{h.ctaVisit}</a>
+        </div>
+      </div>
+      <ul class="fan" aria-label={h.fanLabel}>
         {
-          s.home.cards.map((c) => (
-            <article class="card">
+          h.fan.map((c) => (
+            <li data-fam={c.fam} title={c.text}>
+              <div class="face">
+                <strong>{c.name}</strong>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>{h.bandTitle}</h2>
+      <p>{h.bandText}</p>
+    </div>
+  </section>
+
+  <section class="section bone">
+    <div class="wrap">
+      <h2 class="bar-title">{h.comingTitle}</h2>
+      <div class="cols">
+        {
+          h.cards.map((c) => (
+            <div>
               <h3>{c.title}</h3>
               <p>{c.text}</p>
-            </article>
+            </div>
           ))
         }
       </div>
-    </section>
+    </div>
+  </section>
 
-    {
-      latest.length > 0 && (
-        <section class="section">
-          <p class="eyebrow">{s.home.newsEyebrow}</p>
+  {
+    latest.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <h2 class="bar-title">{h.newsTitle}</h2>
           <PostList lang={lang} posts={latest} />
           <a class="more" href={routes.news[lang]}>
-            {s.home.newsAll} →
+            {h.newsAll}
           </a>
-        </section>
-      )
-    }
+        </div>
+      </section>
+    )
+  }
 
-    <section class="section follow">
-      <p class="eyebrow">{s.home.followEyebrow}</p>
-      <h2>{s.home.followTitle}</h2>
-      <p>{s.home.followText}</p>
+  <section class="section follow">
+    <div class="wrap">
+      <div>
+        <h2 class="bar-title">{h.followTitle}</h2>
+        <p>{h.followText}</p>
+      </div>
       <div class="btn-row">
         <a class="btn" href={SITE.instagram} rel="noopener">
-          {s.home.instagram} {SITE.instagramHandle}
+          {h.instagram} {SITE.instagramHandle}
         </a>
         {
           SITE.discord && (
             <a class="btn ghost" href={SITE.discord} rel="noopener">
-              {s.home.discord}
+              {h.discord}
             </a>
           )
         }
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </Base>

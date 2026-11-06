@@ -11,6 +11,7 @@ const nouvelles = defineCollection({
     date: z.coerce.date(),
     categorie: z.enum(['sortie', 'arrivage', 'evenement', 'nouvelle']).default('nouvelle'),
     resume: z.string().max(240),
+    famille: z.enum(['sport', 'jcc', 'briques', 'jeux', 'collection']).optional(),
     univers: z.string().optional(),
     date_sortie: z.coerce.date().optional(),
     image: z.string().optional(),
