@@ -5,6 +5,8 @@ export const SITE = {
   legal: 'Le Repaire du Collectionneur Inc.',
   url: 'https://lerepairemtl.com',
   email: 'info@lerepairemtl.com',
+  // Responsable de la protection des renseignements personnels (Loi 25).
+  privacyEmail: 'privacy@lerepairemtl.com',
   instagram: 'https://www.instagram.com/lerepairemtl',
   instagramHandle: '@lerepairemtl',
   // Lien d'invitation Discord (membres fondateurs). Vide = bouton masqué.
