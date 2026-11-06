@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { routes, t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+// La boutique Lightspeed E-Series s'intégrera ici à l'ouverture (avril 2027) :
+// le code d'intégration fourni par Lightspeed sera collé dans cette page.
+---
+
+<Base lang={lang} title={s.shop.title} description={s.shop.description} altPath={routes.shop[other]} current="shop">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{s.shop.heading}</h1>
+    </header>
+    <p class="empty">{s.shop.soon}</p>
+    <div class="section plain">
+      <p>{s.shop.text}</p>
+      <div class="btn-row">
+        <a class="btn" href={routes.news[lang]}>{s.nav.news}</a>
+        <a class="btn ghost" href={routes.releases[lang]}>{s.releases.heading}</a>
+      </div>
+    </div>
+  </div>
+</Base>

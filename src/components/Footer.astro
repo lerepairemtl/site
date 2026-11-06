@@ -1,0 +1,26 @@
+---
+import { SITE } from '../config';
+import { routes, t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>
+      {SITE.address.street}<br />
+      {s.district}<br />
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
+    <p>
+      <a href={SITE.instagram} rel="noopener">Instagram {SITE.instagramHandle}</a><br />
+      <a href={routes.privacy[lang]}>{s.footer.privacy}</a><br />
+      © {year} {SITE.legal} {s.footer.rights}
+    </p>
+  </div>
+</footer>

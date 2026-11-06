@@ -1,0 +1,63 @@
+# Éditeur de contenu du site (Decap CMS) — https://lerepairemtl.com/admin/
+# Chaque publication crée un commit dans le dépôt; Cloudflare reconstruit le site.
+
+backend:
+  name: github
+  repo: lerepairemtl/site
+  branch: main
+  # Authentification GitHub par les fonctions Cloudflare Pages (dossier /functions/api).
+  base_url: https://lerepairemtl.com
+  auth_endpoint: /api/auth
+  commit_messages:
+    create: 'Contenu : ajout de « {{slug}} »'
+    update: 'Contenu : mise à jour de « {{slug}} »'
+    delete: 'Contenu : retrait de « {{slug}} »'
+    uploadMedia: 'Média : ajout de « {{path}} »'
+    deleteMedia: 'Média : retrait de « {{path}} »'
+
+locale: fr
+site_url: https://lerepairemtl.com
+display_url: https://lerepairemtl.com
+
+media_folder: public/images/nouvelles
+public_folder: /images/nouvelles
+
+i18n:
+  structure: multiple_folders
+  locales: [fr, en]
+  default_locale: fr
+
+collections:
+  - name: nouvelles
+    label: Nouvelles et sorties
+    label_singular: Publication
+    description: Sorties de cartes, arrivages, événements et nouvelles. Le français est obligatoire; sans version anglaise, le site anglais affiche le français.
+    folder: src/content/nouvelles
+    create: true
+    i18n: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    summary: '{{title}} ({{categorie}}, {{date}})'
+    sortable_fields: [date, title, categorie]
+    view_filters:
+      - { label: Brouillons, field: draft, pattern: true }
+      - { label: Sorties, field: categorie, pattern: sortie }
+    fields:
+      - { name: title, label: Titre, widget: string, i18n: true }
+      - name: categorie
+        label: Catégorie
+        widget: select
+        i18n: duplicate
+        default: nouvelle
+        options:
+          - { label: Sortie, value: sortie }
+          - { label: Arrivage, value: arrivage }
+          - { label: Événement, value: evenement }
+          - { label: Nouvelle, value: nouvelle }
+      - { name: date, label: Date de publication, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, i18n: duplicate }
+      - { name: resume, label: Résumé, hint: 'Une ou deux phrases, 240 caractères au plus. Sert aussi aux réseaux sociaux.', widget: text, pattern: ['^[\s\S]{1,240}$', '240 caractères au plus'], i18n: true }
+      - { name: univers, label: Univers, hint: 'Ex. Hockey, Pokémon, One Piece, Lego.', widget: string, required: false, i18n: duplicate }
+      - { name: date_sortie, label: Date de sortie, hint: 'Pour une sortie seulement : place la publication dans le calendrier.', widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, required: false, default: '', i18n: duplicate }
+      - { name: image, label: Image, widget: image, required: false, i18n: duplicate }
+      - { name: image_alt, label: "Description de l'image", hint: 'Pour les lecteurs d’écran.', widget: string, required: false, i18n: true }
+      - { name: draft, label: Brouillon, hint: 'Coché : la publication reste hors ligne.', widget: boolean, default: false, i18n: duplicate }
+      - { name: body, label: Texte, widget: markdown, i18n: true }

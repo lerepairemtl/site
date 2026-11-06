@@ -1,0 +1,135 @@
+---
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/manrope/300.css';
+import '@fontsource/manrope/400.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config';
+import { t, type Lang, type RouteKey } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Adresse de la même page dans l'autre langue. */
+  altPath: string;
+  current?: RouteKey;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const { lang, title, description, altPath, current, ogType = 'website', ogImage, noindex = false } = Astro.props;
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const abs = (p: string) => new URL(p, SITE.url).href;
+const canonical = abs(Astro.url.pathname);
+const image = abs(ogImage ?? '/assets/og-image.jpg');
+const frHref = lang === 'fr' ? canonical : abs(altPath);
+const enHref = lang === 'en' ? canonical : abs(altPath);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
+      name: SITE.name,
+      legalName: SITE.legal,
+      url: SITE.url,
+      logo: abs('/assets/icon-512.png'),
+      email: SITE.email,
+      sameAs: [SITE.instagram],
+    },
+    {
+      '@type': ['Store', 'HobbyShop'],
+      '@id': `${SITE.url}/#store`,
+      name: SITE.name,
+      parentOrganization: { '@id': `${SITE.url}/#organization` },
+      url: SITE.url,
+      image: abs('/assets/og-image.jpg'),
+      email: SITE.email,
+      currenciesAccepted: 'CAD',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: SITE.address.street,
+        addressLocality: SITE.address.city,
+        addressRegion: SITE.address.region,
+        postalCode: SITE.address.postal,
+        addressCountry: SITE.address.country,
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+      knowsLanguage: ['fr-CA', 'en-CA'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE.url}/#website`,
+      url: SITE.url,
+      name: SITE.name,
+      publisher: { '@id': `${SITE.url}/#organization` },
+      inLanguage: ['fr-CA', 'en-CA'],
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={lang === 'fr' ? 'fr-CA' : 'en-CA'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1C1C1C" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="fr-CA" href={frHref} />
+    <link rel="alternate" hreflang="en-CA" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={frHref} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${SITE.name} — ${t(lang).news.heading}`}
+      href={lang === 'fr' ? '/rss.xml' : '/en/rss.xml'}
+    />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_CA' : 'en_CA'} />
+    <meta property="og:locale:alternate" content={other === 'fr' ? 'fr_CA' : 'en_CA'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {
+      SITE.cfAnalyticsToken && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: SITE.cfAnalyticsToken })}
+        />
+      )
+    }
+  </head>
+  <body>
+    <a class="skip" href="#contenu">{t(lang).skip}</a>
+    <Header lang={lang} altPath={altPath} current={current} />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

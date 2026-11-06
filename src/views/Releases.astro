@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import { postPath, routes, t, type Lang } from '../i18n';
+import { getPosts, monthLabel } from '../lib/posts';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+
+const releases = (await getPosts(lang))
+  .filter((p) => p.entry.data.categorie === 'sortie' && p.entry.data.date_sortie)
+  .sort((a, b) => a.entry.data.date_sortie!.valueOf() - b.entry.data.date_sortie!.valueOf());
+
+// Regroupement par mois, en ordre chronologique.
+const months = new Map<string, typeof releases>();
+for (const r of releases) {
+  const key = r.entry.data.date_sortie!.toISOString().slice(0, 7);
+  months.set(key, [...(months.get(key) ?? []), r]);
+}
+const weekday = (d: Date) =>
+  new Intl.DateTimeFormat(lang === 'fr' ? 'fr-CA' : 'en-CA', { weekday: 'short', timeZone: 'UTC' }).format(d);
+---
+
+<Base
+  lang={lang}
+  title={s.releases.title}
+  description={s.releases.description}
+  altPath={routes.releases[other]}
+  current="releases"
+>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{s.releases.heading}</h1>
+      <p>{s.releases.intro}</p>
+    </header>
+    {
+      releases.length === 0 ? (
+        <p class="empty">{s.releases.empty}</p>
+      ) : (
+        [...months].map(([key, items]) => (
+          <section class="month" data-month={key}>
+            <h2>{monthLabel(items[0].entry.data.date_sortie!, lang)}</h2>
+            {items.map(({ slug, entry }) => {
+              const d = entry.data.date_sortie!;
+              return (
+                <a class="release" href={postPath(lang, slug)} data-date={d.toISOString().slice(0, 10)}>
+                  <span class="day">
+                    {d.getUTCDate()}
+                    <small>{weekday(d)}</small>
+                  </span>
+                  <span>
+                    {entry.data.univers && <span class="tag">{entry.data.univers}</span>}
+                    <h3>{entry.data.title}</h3>
+                    <p>{entry.data.resume}</p>
+                  </span>
+                </a>
+              );
+            })}
+          </section>
+        ))
+      )
+    }
+  </div>
+</Base>
+
+<script is:inline>
+  // Le site est statique : on estompe les sorties passées au moment de l'affichage,
+  // et on masque les mois entièrement écoulés depuis plus de 60 jours.
+  (function () {
+    var today = new Date().toISOString().slice(0, 10);
+    var cutoff = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
+    document.querySelectorAll('.month').forEach(function (m) {
+      var items = m.querySelectorAll('.release');
+      var allOld = true;
+      items.forEach(function (el) {
+        if (el.dataset.date < today) el.classList.add('is-past');
+        if (el.dataset.date >= cutoff) allOld = false;
+      });
+      if (allOld) m.hidden = true;
+    });
+  })();
+</script>

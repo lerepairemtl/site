@@ -1,0 +1,71 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { categories, postPath, routes, t, type Lang } from '../i18n';
+import { formatDate, type Post } from '../lib/posts';
+
+interface Props {
+  lang: Lang;
+  post: Post;
+}
+const { lang, post } = Astro.props;
+const { slug, entry, fallback } = post;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const { Content } = await render(entry);
+const d = entry.data;
+const contentLang = fallback ? other : lang;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: d.title,
+  description: d.resume,
+  datePublished: d.date.toISOString(),
+  inLanguage: contentLang === 'fr' ? 'fr-CA' : 'en-CA',
+  image: d.image ? new URL(d.image, SITE.url).href : undefined,
+  publisher: { '@id': `${SITE.url}/#organization` },
+  mainEntityOfPage: new URL(postPath(lang, slug), SITE.url).href,
+};
+---
+
+<Base
+  lang={lang}
+  title={`${d.title} | ${SITE.name}`}
+  description={d.resume}
+  altPath={postPath(other, slug)}
+  current="news"
+  ogType="article"
+  ogImage={d.image}
+  noindex={d.draft}
+>
+  <div class="wrap">
+    <article class="article">
+      <a class="more" href={routes.news[lang]} style="margin:0 0 28px">← {s.news.back}</a>
+      <div class="post-meta">
+        <span class="tag">{categories[d.categorie][lang]}</span>
+        {d.univers && <span class="label">{d.univers}</span>}
+        <time class="label" datetime={d.date.toISOString().slice(0, 10)}>{formatDate(d.date, lang)}</time>
+        {d.draft && <span class="tag draft">{s.news.draft}</span>}
+      </div>
+      <h1 lang={fallback ? contentLang : undefined}>{d.title}</h1>
+      {fallback && <p class="notice">{s.news.fallback}</p>}
+      <p class="lede" lang={fallback ? contentLang : undefined}>{d.resume}</p>
+      {
+        d.date_sortie && (
+          <p class="facts label">
+            <span>
+              {s.news.releaseOn} : <strong>{formatDate(d.date_sortie, lang)}</strong>
+            </span>
+          </p>
+        )
+      }
+      {d.image && <img class="cover" src={d.image} alt={d.image_alt ?? ''} />}
+      <div class="prose" lang={fallback ? contentLang : undefined}>
+        <Content />
+      </div>
+    </article>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+</Base>

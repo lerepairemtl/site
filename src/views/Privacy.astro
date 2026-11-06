@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { routes, t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+---
+
+<Base lang={lang} title={s.privacy.title} description={s.privacy.description} altPath={routes.privacy[other]} current="privacy">
+  <div class="wrap plain">
+    <header class="page-head">
+      <h1>{s.privacy.heading}</h1>
+    </header>
+    {s.privacy.paragraphs.map((p) => <p>{p}</p>)}
+    <p>
+      {s.privacy.contact}
+      <a href={`mailto:${SITE.email}`} style="color:var(--gold-bright)">{SITE.email}</a>
+    </p>
+  </div>
+</Base>

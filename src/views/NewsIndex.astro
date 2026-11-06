@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { routes, t, type Lang } from '../i18n';
+import { getPosts } from '../lib/posts';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const posts = await getPosts(lang);
+---
+
+<Base lang={lang} title={s.news.title} description={s.news.description} altPath={routes.news[other]} current="news">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{s.news.heading}</h1>
+      <p>{s.news.intro}</p>
+    </header>
+    {posts.length > 0 ? <PostList lang={lang} posts={posts} /> : <p class="empty">{s.news.empty}</p>}
+    <a class="more" href={lang === 'fr' ? '/rss.xml' : '/en/rss.xml'}>{s.news.feed}</a>
+  </div>
+</Base>

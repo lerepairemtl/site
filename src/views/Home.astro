@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { SITE } from '../config';
+import { routes, t, type Lang } from '../i18n';
+import { getPosts } from '../lib/posts';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const latest = (await getPosts(lang)).slice(0, 3);
+---
+
+<Base lang={lang} title={s.home.title} description={s.home.description} altPath={routes.home[other]} current="home">
+  <div class="wrap">
+    <section class="hero">
+      <img class="mascot" src="/assets/theo-mascot-transparent.png" alt="Théo" width="480" height="440" />
+      <h1>{s.home.lead} <span class="accent">{s.home.leadAccent}</span></h1>
+      <p class="body">{s.home.body}</p>
+      <hr class="rule" />
+      <ul class="taglines">
+        <li>{s.taglineA.map((w) => <span>{w}</span>)}</li>
+        <li>{s.taglineB.map((w) => <span>{w}</span>)}</li>
+      </ul>
+      <p class="status">
+        <strong>{s.opening}</strong>
+        <span>{SITE.address.street}, Griffintown</span>
+      </p>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">{s.home.comingEyebrow}</p>
+      <div class="cards">
+        {
+          s.home.cards.map((c) => (
+            <article class="card">
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      latest.length > 0 && (
+        <section class="section">
+          <p class="eyebrow">{s.home.newsEyebrow}</p>
+          <PostList lang={lang} posts={latest} />
+          <a class="more" href={routes.news[lang]}>
+            {s.home.newsAll} →
+          </a>
+        </section>
+      )
+    }
+
+    <section class="section follow">
+      <p class="eyebrow">{s.home.followEyebrow}</p>
+      <h2>{s.home.followTitle}</h2>
+      <p>{s.home.followText}</p>
+      <div class="btn-row">
+        <a class="btn" href={SITE.instagram} rel="noopener">
+          {s.home.instagram} {SITE.instagramHandle}
+        </a>
+        {
+          SITE.discord && (
+            <a class="btn ghost" href={SITE.discord} rel="noopener">
+              {s.home.discord}
+            </a>
+          )
+        }
+      </div>
+    </section>
+  </div>
+</Base>

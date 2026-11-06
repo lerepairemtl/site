@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { routes, t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const a = SITE.address;
+---
+
+<Base lang={lang} title={s.visit.title} description={s.visit.description} altPath={routes.visit[other]} current="visit">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{s.visit.heading}</h1>
+      <p>{s.visit.intro}</p>
+    </header>
+    <div class="info">
+      <div>
+        <h2>{s.visit.addressLabel}</h2>
+        <address>
+          {a.street}<br />
+          {a.city} ({a.region}) {a.postal}
+        </address>
+        <div class="btn-row">
+          <a class="btn ghost" href={SITE.mapUrl} rel="noopener">{s.visit.directions}</a>
+        </div>
+      </div>
+      <div>
+        <h2>{s.visit.hoursLabel}</h2>
+        <p>{s.visit.hours}</p>
+      </div>
+      <div>
+        <h2>{s.visit.contactLabel}</h2>
+        <p>
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+          <a href={SITE.instagram} rel="noopener">Instagram {SITE.instagramHandle}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</Base>

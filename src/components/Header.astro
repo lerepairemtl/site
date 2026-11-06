@@ -1,0 +1,50 @@
+---
+import { SITE } from '../config';
+import { routes, t, type Lang, type RouteKey } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  altPath: string;
+  current?: RouteKey;
+}
+const { lang, altPath, current } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const links: { key: RouteKey; label: string }[] = [
+  { key: 'news', label: s.nav.news },
+  { key: 'releases', label: s.nav.releases },
+  { key: 'shop', label: s.nav.shop },
+  { key: 'visit', label: s.nav.visit },
+];
+---
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href={routes.home[lang]} aria-label={SITE.name}>
+      <img class="mark" src="/assets/theo-mascot-transparent.png" alt="" width="480" height="440" />
+      {
+        SITE.logoWordmark ? (
+          <img class="wordmark" src={SITE.logoWordmark} alt={SITE.name} />
+        ) : (
+          <span class="name">
+            Le Repaire
+            <br />
+            du Collectionneur
+          </span>
+        )
+      }
+    </a>
+    <nav class="site-nav" aria-label={s.navLabel}>
+      {
+        links.map((l) => (
+          <a href={routes[l.key][lang]} aria-current={current === l.key ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
+      <a class="lang" href={altPath} hreflang={other === 'fr' ? 'fr-CA' : 'en-CA'} lang={other} aria-label={s.langSwitch}>
+        {s.langSwitchShort}
+      </a>
+    </nav>
+  </div>
+</header>
