@@ -53,14 +53,7 @@ const fr = {
     body: 'Le Repaire, c’est là où on se retrouve. Entre nous, et un peu avec soi.',
     ctaFollow: 'Suivre sur Instagram',
     ctaVisit: 'Nous trouver',
-    fanLabel: 'Ce qu’on trouve au Repaire',
-    fan: [
-      { fam: 'sport', name: 'Sport', text: 'Hockey, baseball, basket, soccer, F1' },
-      { fam: 'jcc', name: 'JCC', text: 'Scellé et cartes à l’unité' },
-      { fam: 'briques', name: 'Briques', text: 'Ensembles et maquettes à assembler' },
-      { fam: 'jeux', name: 'Jeux', text: 'Pour l’apéro et les longues soirées' },
-      { fam: 'collection', name: 'Collection', text: 'Mémorabilia, vintage et trouvailles' },
-    ],
+    facadeLabel: 'Illustration de la devanture du Repaire, rue De la Montagne, le soir',
     bandTitle: 'Achat · Vente · Échange',
     bandText: 'À l’ouverture, on rachète aussi : cartes à l’unité, lots et collections entières.',
     comingTitle: 'Ce qui s’en vient',
@@ -75,7 +68,7 @@ const fr = {
       },
       {
         title: 'En ligne',
-        text: 'La boutique en ligne ouvre en même temps que le magasin : même inventaire, cueillette sur place.',
+        text: 'Une boutique en ligne suivra, avec une sélection de ce qu’on trouve en magasin.',
       },
     ],
     newsTitle: 'Dernières nouvelles',
@@ -111,10 +104,10 @@ const fr = {
   shop: {
     title: 'Boutique en ligne | Le Repaire du Collectionneur',
     description:
-      'La boutique en ligne du Repaire du Collectionneur ouvre avec le magasin, au printemps 2027.',
+      'La boutique en ligne du Repaire du Collectionneur est en préparation.',
     heading: 'Boutique en ligne',
-    soon: 'La boutique en ligne ouvre avec le magasin, au printemps 2027.',
-    text: 'Même inventaire qu’en boutique, avec la cueillette sur place. D’ici là, les nouvelles se passent ici.',
+    soon: 'La boutique en ligne s’en vient.',
+    text: 'On y proposera une sélection de ce qu’on trouve en magasin. D’ici là, les nouvelles se passent ici.',
   },
   visit: {
     title: 'Nous trouver | Le Repaire du Collectionneur',
@@ -169,14 +162,7 @@ const en: typeof fr = {
     body: 'Le Repaire is where we find each other. And a little of ourselves.',
     ctaFollow: 'Follow on Instagram',
     ctaVisit: 'Find us',
-    fanLabel: 'What you’ll find at Le Repaire',
-    fan: [
-      { fam: 'sport', name: 'Sport', text: 'Hockey, baseball, basketball, soccer, F1' },
-      { fam: 'jcc', name: 'TCG', text: 'Sealed product and singles' },
-      { fam: 'briques', name: 'Bricks', text: 'Sets and model kits to build' },
-      { fam: 'jeux', name: 'Games', text: 'For drinks and long evenings' },
-      { fam: 'collection', name: 'Finds', text: 'Memorabilia, vintage and rarities' },
-    ],
+    facadeLabel: 'Illustration of the Le Repaire storefront on De la Montagne Street, at night',
     bandTitle: 'Buy · Sell · Trade',
     bandText: 'Once we open, we buy too: singles, lots and whole collections.',
     comingTitle: 'What’s coming',
@@ -191,7 +177,7 @@ const en: typeof fr = {
       },
       {
         title: 'Online',
-        text: 'The online shop opens the same day as the store: same inventory, in-store pickup.',
+        text: 'An online shop will follow, with a selection of what’s in store.',
       },
     ],
     newsTitle: 'Latest news',
@@ -226,10 +212,10 @@ const en: typeof fr = {
   },
   shop: {
     title: 'Online shop | Le Repaire du Collectionneur',
-    description: 'Le Repaire du Collectionneur’s online shop opens with the store in spring 2027.',
+    description: 'Le Repaire du Collectionneur’s online shop is in the works.',
     heading: 'Online shop',
-    soon: 'The online shop opens with the store, in spring 2027.',
-    text: 'Same inventory as in store, with in-store pickup. Until then, the news lives here.',
+    soon: 'The online shop is on its way.',
+    text: 'It will carry a selection of what’s in store. Until then, the news lives here.',
   },
   visit: {
     title: 'Visit | Le Repaire du Collectionneur',

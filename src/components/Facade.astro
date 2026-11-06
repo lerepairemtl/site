@@ -1,0 +1,147 @@
+---
+// Illustration de la devanture du 319, rue De la Montagne, le soir.
+// Dessinée d'après le schéma d'enseigne (bandeau LE REPAIRE au-dessus de la porte,
+// grande vitrine à droite, enseigne en saillie). Les logos sont les exports officiels,
+// placés tels quels sur fond Onyx; aucun effet ne leur est appliqué.
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+
+const fam = ['#9e2f2b', '#5a3b7a', '#a5521f', '#2c6a4e', '#1f4a5c'];
+
+// Tablettes de la grande vitrine : boîtes et ensembles, aux couleurs d'univers.
+const shelves = [
+  { y: 262, items: [26, 18, 34, 22, 30, 16, 28, 20] },
+  { y: 326, items: [34, 24, 18, 30, 22, 36, 20] },
+  { y: 390, items: [20, 30, 26, 16, 34, 24, 28] },
+].map((s, r) => {
+  let x = 330;
+  return {
+    y: s.y,
+    boxes: s.items.map((w, i) => {
+      const h = 26 + ((i * 7 + r * 5) % 4) * 6;
+      const b = { x, w, h, c: fam[(i + r * 2) % fam.length] };
+      x += w + 6;
+      return b;
+    }).filter((b) => b.x + b.w <= 546),
+  };
+});
+
+// Présentoir de cartes gradées dans la vitrine de gauche.
+const slabs = Array.from({ length: 4 }, (_, r) =>
+  Array.from({ length: 4 }, (_, c) => ({ x: 178 + c * 19, y: 232 + r * 34, c: fam[(r + c) % fam.length] })),
+).flat();
+---
+
+<svg class="facade" viewBox="0 0 600 540" role="img" aria-label={label}>
+  <defs>
+    <pattern id="fa-brique" width="44" height="20" patternUnits="userSpaceOnUse">
+      <rect width="44" height="20" fill="#2e2c2a" />
+      <path d="M0 .5H44M0 10.5H44M11 0V10M33 10V20" stroke="#201f1e" stroke-width="1.5" fill="none" />
+    </pattern>
+    <linearGradient id="fa-verre" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1ddb4" />
+      <stop offset="1" stop-color="#c79a5a" />
+    </linearGradient>
+    <linearGradient id="fa-haut" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c1c1c" />
+      <stop offset="1" stop-color="#1c1c1c" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="fa-cote" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1c1c1c" />
+      <stop offset="0.09" stop-color="#1c1c1c" stop-opacity="0" />
+      <stop offset="0.91" stop-color="#1c1c1c" stop-opacity="0" />
+      <stop offset="1" stop-color="#1c1c1c" />
+    </linearGradient>
+    <linearGradient id="fa-sol" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9b77c" stop-opacity="0.3" />
+      <stop offset="1" stop-color="#d9b77c" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Mur de brique -->
+  <rect x="0" y="0" width="600" height="476" fill="url(#fa-brique)" />
+  <rect x="0" y="0" width="600" height="60" fill="url(#fa-haut)" />
+
+  <!-- Bandeau d'enseigne (fond Onyx) -->
+  <rect x="34" y="100" width="532" height="84" fill="#1c1c1c" />
+  <image href="/assets/logo/LeRepaire_W_OnyxBG_v1.png" x="56" y="117" width="225" height="50" preserveAspectRatio="xMinYMid meet" />
+
+  <!-- Cadre de la devanture -->
+  <rect x="34" y="184" width="532" height="292" fill="#161615" />
+
+  <!-- Vitrages éclairés -->
+  <g class="lueur">
+    <rect x="62" y="200" width="98" height="264" fill="url(#fa-verre)" />
+    <rect x="168" y="200" width="98" height="264" fill="url(#fa-verre)" />
+    <rect x="318" y="200" width="234" height="264" fill="url(#fa-verre)" />
+  </g>
+
+  <!-- Porte : numéro civique, poignée, seuil -->
+  <rect x="62" y="200" width="98" height="30" fill="#161615" opacity="0.55" />
+  <text x="111" y="222" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="20" fill="#f5f1ea">319</text>
+  <rect x="146" y="318" width="5" height="44" rx="2.5" fill="#161615" />
+
+  <!-- Vitrine de gauche : cartes gradées dans leur cadre de bois -->
+  <rect x="172" y="224" width="90" height="150" fill="none" stroke="#6b4a2b" stroke-width="5" />
+  {slabs.map((s) => <rect x={s.x} y={s.y} width="14" height="24" rx="1.5" fill={s.c} stroke="#f5f1ea" stroke-width="1.5" />)}
+  <rect x="168" y="388" width="98" height="76" fill="#161615" opacity="0.5" />
+
+  <!-- Grande vitrine : tablettes de bois, boîtes aux couleurs d'univers, suspensions -->
+  {
+    [352, 435, 518].map((x) => (
+      <g>
+        <path d={`M${x} 200V222`} stroke="#161615" stroke-width="1.5" />
+        <circle cx={x} cy="228" r="7" fill="#fff6dc" />
+      </g>
+    ))
+  }
+  {
+    shelves.map((s) => (
+      <g>
+        {s.boxes.map((b) => <rect x={b.x} y={s.y - b.h} width={b.w} height={b.h} rx="1.5" fill={b.c} />)}
+        <rect x="318" y={s.y} width="234" height="5" fill="#6b4a2b" />
+      </g>
+    ))
+  }
+
+  <!-- Bandeau de vinyle au bas des vitrines -->
+  <g fill="none" stroke="#f5f1ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <rect x="182" y="418" width="20" height="28" rx="3" />
+    <path d="M187 427h10M187 433h10" />
+    <rect x="222" y="424" width="26" height="18" rx="2" />
+    <path d="M228 424v-5h5v5M238 424v-5h5v5" />
+    <rect x="334" y="418" width="20" height="28" rx="3" />
+    <path d="M339 427h10M339 433h10" />
+    <rect x="376" y="424" width="26" height="18" rx="2" />
+    <path d="M382 424v-5h5v5M392 424v-5h5v5" />
+    <rect x="424" y="420" width="24" height="24" rx="4" />
+    <path d="M431 427h.01M441 437h.01M436 432h.01" stroke-width="3.5" />
+    <path d="M482 418l4 9 10 1-7.5 6.5 2.5 9.5-9-5.5-9 5.5 2.5-9.5-7.5-6.5 10-1z" />
+    <rect x="516" y="418" width="20" height="28" rx="3" />
+    <path d="M521 427h10M521 433h10" />
+  </g>
+
+  <!-- Meneaux -->
+  <path d="M160 200V464M266 200V464" stroke="#161615" stroke-width="8" />
+
+  <!-- Enseigne en saillie -->
+  <path d="M291 62h18" stroke="#3a3936" stroke-width="4" />
+  <g transform="translate(306 30)">
+    <rect x="0" y="0" width="64" height="64" fill="#1c1c1c" stroke="#d9b77c" stroke-width="1.5" />
+    <image href="/assets/logo/LeRepaire_Theo_Hat_OnyxBG_v1.png" x="8" y="8" width="48" height="48" />
+  </g>
+
+  <!-- Trottoir et lumière des vitrines -->
+  <rect x="0" y="476" width="600" height="64" fill="#1f1f1e" />
+  <g class="lueur">
+    <path d="M62 476h98l26 64H36z" fill="url(#fa-sol)" />
+    <path d="M168 476h98l26 64H142z" fill="url(#fa-sol)" />
+    <path d="M318 476h234l34 64H284z" fill="url(#fa-sol)" />
+  </g>
+  <path d="M0 476H600" stroke="#111" stroke-width="2" />
+
+  <!-- Fondu vers le fond de page -->
+  <rect x="0" y="0" width="600" height="540" fill="url(#fa-cote)" />
+</svg>

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
+import Facade from '../components/Facade.astro';
 import { SITE } from '../config';
 import { routes, t, type Lang } from '../i18n';
 import { getPosts } from '../lib/posts';
@@ -27,17 +28,7 @@ const latest = (await getPosts(lang)).slice(0, 3);
           <a class="btn ghost" href={routes.visit[lang]}>{h.ctaVisit}</a>
         </div>
       </div>
-      <ul class="fan" aria-label={h.fanLabel}>
-        {
-          h.fan.map((c) => (
-            <li data-fam={c.fam} title={c.text}>
-              <div class="face">
-                <strong>{c.name}</strong>
-              </div>
-            </li>
-          ))
-        }
-      </ul>
+      <Facade label={h.facadeLabel} />
     </div>
   </section>
 
