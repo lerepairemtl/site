@@ -21,7 +21,7 @@ const latest = (await getPosts(lang)).slice(0, 3);
     <div class="wrap">
       <div>
         <p class="hero-status mono">{h.status}</p>
-        <h1>{h.lead} <small>{h.leadSub}</small></h1>
+        <h1>{h.lead} <small>{h.leadSub[0]}<span class="sc">{h.leadSub[1]}</span>{h.leadSub[2]}</small></h1>
         <p class="hero-body">{h.body}</p>
         <div class="btn-row">
           <a class="btn" href={SITE.instagram} rel="noopener">{h.ctaFollow}</a>

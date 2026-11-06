@@ -294,6 +294,10 @@ main {
   margin-top: 0.3em;
   letter-spacing: 0.02em;
 }
+/* Bebas Neue n'a pas de minuscules : le « c » de McCord est rendu en petite capitale. */
+.hero h1 .sc {
+  font-size: 0.72em;
+}
 .hero-body {
   font-size: clamp(18px, 2vw, 21px);
   line-height: 1.5;
