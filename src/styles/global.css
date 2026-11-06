@@ -659,7 +659,7 @@ main {
 .plain p {
   max-width: 64ch;
 }
-.plain a {
+.plain a:not(.btn) {
   color: var(--champagne);
 }
 
