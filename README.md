@@ -27,6 +27,22 @@ le site anglais affiche la version française avec une mention.
 Les flux `/rss.xml` (FR) et `/en/rss.xml` (EN) servent de source aux republications automatiques
 (réseaux sociaux, Discord, infolettre).
 
+## Couleurs d'univers
+
+Ajout à la palette du Brand Guide v1.4, à inscrire à la v1.5. Une teinte par famille de produits,
+dans le même registre que le Bleu pétrole (tons bijou désaturés, texte Bone lisible à 4,5:1 et plus).
+
+| Famille | Couleur | HEX |
+|---|---|---|
+| Cartes sportives | Grenat | `#8F3130` |
+| Jeux de cartes à collectionner | Prune | `#5A3B7A` |
+| Briques et maquettes | Cuivre | `#9A5524` |
+| Jeux de société | Sapin | `#2C6A4E` |
+| Pièces de collection | Bleu pétrole | `#1F4A5C` |
+
+Règles : elles codent une famille (étiquettes, fiches, calendrier, produits de l'illustration);
+jamais sur le logo ni la mascotte, jamais comme fond dominant, texte en Bone seulement.
+
 ## Logo
 
 Le logo s'utilise tel quel, à partir des fichiers maîtres : déposer le fichier dans `public/assets/`
