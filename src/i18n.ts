@@ -64,7 +64,7 @@ const fr = {
       },
       {
         title: 'Le cercle',
-        text: 'Des tables pour jouer, des soirées pour se retrouver, et un premier cercle de membres avant même l’ouverture.',
+        text: 'Des tables pour jouer, des soirées pour se retrouver, et des habitués qui finissent par se connaître. Le Repaire, c’est aussi ceux qui le fréquentent.',
       },
       {
         title: 'En ligne',
@@ -173,7 +173,7 @@ const en: typeof fr = {
       },
       {
         title: 'The circle',
-        text: 'Tables to play at, evenings to gather, and a first circle of members before the doors even open.',
+        text: 'Tables to play at, evenings to gather, and regulars who end up knowing each other. Le Repaire is also the people who come through its doors.',
       },
       {
         title: 'Online',
