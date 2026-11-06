@@ -6,3 +6,12 @@
 
 /admin/*
   X-Robots-Tag: noindex
+
+# Tant que le domaine lerepairemtl.com n'est pas branché, l'adresse technique
+# *.pages.dev (et ses aperçus) ne doit pas être indexée par les moteurs de recherche.
+# Le domaine lerepairemtl.com n'est pas touché par cette règle.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
