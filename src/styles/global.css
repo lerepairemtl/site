@@ -304,18 +304,18 @@ main {
   height: auto;
   margin: 0 auto;
 }
-.facade .lueur {
-  animation: allume 1.4s ease-out 0.2s backwards;
+.facade {
+  animation: allume 1.2s ease-out 0.15s backwards;
 }
 @keyframes allume {
   0% {
     opacity: 0;
   }
   35% {
-    opacity: 0.55;
+    opacity: 0.6;
   }
   45% {
-    opacity: 0.25;
+    opacity: 0.3;
   }
   100% {
     opacity: 1;

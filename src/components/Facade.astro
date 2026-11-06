@@ -1,147 +1,170 @@
 ---
 // Illustration de la devanture du 319, rue De la Montagne, le soir.
-// Dessinée d'après le schéma d'enseigne (bandeau LE REPAIRE au-dessus de la porte,
-// grande vitrine à droite, enseigne en saillie). Les logos sont les exports officiels,
-// placés tels quels sur fond Onyx; aucun effet ne leur est appliqué.
+// Version validée par J-F le 5 novembre 2026 : petite vitrine, porte, puis grande vitrine
+// (lounge, présentoir en hauteur, table de jeu contre le mur de droite).
+// Les logos sont les exports officiels, placés tels quels sur fond Onyx; aucun effet ne leur est appliqué.
 interface Props {
   label: string;
 }
 const { label } = Astro.props;
-
-const fam = ['#9e2f2b', '#5a3b7a', '#a5521f', '#2c6a4e', '#1f4a5c'];
-
-// Tablettes de la grande vitrine : boîtes et ensembles, aux couleurs d'univers.
-const shelves = [
-  { y: 262, items: [26, 18, 34, 22, 30, 16, 28, 20] },
-  { y: 326, items: [34, 24, 18, 30, 22, 36, 20] },
-  { y: 390, items: [20, 30, 26, 16, 34, 24, 28] },
-].map((s, r) => {
-  let x = 330;
-  return {
-    y: s.y,
-    boxes: s.items.map((w, i) => {
-      const h = 26 + ((i * 7 + r * 5) % 4) * 6;
-      const b = { x, w, h, c: fam[(i + r * 2) % fam.length] };
-      x += w + 6;
-      return b;
-    }).filter((b) => b.x + b.w <= 546),
-  };
-});
-
-// Présentoir de cartes gradées dans la vitrine de gauche.
-const slabs = Array.from({ length: 4 }, (_, r) =>
-  Array.from({ length: 4 }, (_, c) => ({ x: 178 + c * 19, y: 232 + r * 34, c: fam[(r + c) % fam.length] })),
-).flat();
 ---
 
 <svg class="facade" viewBox="0 0 600 540" role="img" aria-label={label}>
   <defs>
     <pattern id="fa-brique" width="44" height="20" patternUnits="userSpaceOnUse">
-      <rect width="44" height="20" fill="#2e2c2a" />
-      <path d="M0 .5H44M0 10.5H44M11 0V10M33 10V20" stroke="#201f1e" stroke-width="1.5" fill="none" />
+      <rect width="44" height="20" fill="#2e2c2a"/>
+      <path d="M0 .5H44M0 10.5H44M11 0V10M33 10V20" stroke="#201f1e" stroke-width="1.5" fill="none"/>
     </pattern>
-    <linearGradient id="fa-verre" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f1ddb4" />
-      <stop offset="1" stop-color="#c79a5a" />
-    </linearGradient>
-    <linearGradient id="fa-haut" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1c1c1c" />
-      <stop offset="1" stop-color="#1c1c1c" stop-opacity="0" />
-    </linearGradient>
-    <linearGradient id="fa-cote" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#1c1c1c" />
-      <stop offset="0.09" stop-color="#1c1c1c" stop-opacity="0" />
-      <stop offset="0.91" stop-color="#1c1c1c" stop-opacity="0" />
-      <stop offset="1" stop-color="#1c1c1c" />
-    </linearGradient>
-    <linearGradient id="fa-sol" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#d9b77c" stop-opacity="0.3" />
-      <stop offset="1" stop-color="#d9b77c" stop-opacity="0" />
-    </linearGradient>
+    <linearGradient id="fa-haut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1c1c"/><stop offset="1" stop-color="#1c1c1c" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fa-cote" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1c1c1c"/><stop offset=".09" stop-color="#1c1c1c" stop-opacity="0"/><stop offset=".91" stop-color="#1c1c1c" stop-opacity="0"/><stop offset="1" stop-color="#1c1c1c"/></linearGradient>
+    <linearGradient id="fa-sol" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9b77c" stop-opacity=".22"/><stop offset="1" stop-color="#d9b77c" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fa-murBone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9a988"/><stop offset=".45" stop-color="#efe6d3"/><stop offset="1" stop-color="#d8c9ab"/></linearGradient>
+    <linearGradient id="fa-murNoir" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d1b19"/><stop offset="1" stop-color="#34302b"/></linearGradient>
+    <linearGradient id="fa-sas" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b352e"/><stop offset="1" stop-color="#6d5a3f"/></linearGradient>
+    <linearGradient id="fa-cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9b8" stop-opacity=".75"/><stop offset="1" stop-color="#ffe9b8" stop-opacity="0"/></linearGradient>
+    <clipPath id="fa-vD"><rect x="318" y="200" width="234" height="264"/></clipPath>
+    <clipPath id="fa-vG"><rect x="168" y="200" width="98" height="264"/></clipPath>
+    <clipPath id="fa-vP"><rect x="62" y="200" width="98" height="264"/></clipPath>
   </defs>
 
-  <!-- Mur de brique -->
-  <rect x="0" y="0" width="600" height="476" fill="url(#fa-brique)" />
-  <rect x="0" y="0" width="600" height="60" fill="url(#fa-haut)" />
+  <rect width="600" height="540" fill="#1c1c1c"/>
+  <rect width="600" height="476" fill="url(#fa-brique)"/>
+  <rect width="600" height="60" fill="url(#fa-haut)"/>
 
-  <!-- Bandeau d'enseigne (fond Onyx) -->
-  <rect x="34" y="100" width="532" height="84" fill="#1c1c1c" />
-  <image href="/assets/logo/LeRepaire_W_OnyxBG_v1.png" x="56" y="117" width="225" height="50" preserveAspectRatio="xMinYMid meet" />
+  <!-- Bandeau d'enseigne -->
+  <rect x="34" y="100" width="532" height="84" fill="#1c1c1c"/>
+  <image href="/assets/logo/LeRepaire_W_OnyxBG_v1.png" x="56" y="117" width="225" height="50" preserveAspectRatio="xMinYMid meet"/>
 
-  <!-- Cadre de la devanture -->
-  <rect x="34" y="184" width="532" height="292" fill="#161615" />
+  <rect x="34" y="184" width="532" height="292" fill="#161615"/>
 
-  <!-- Vitrages éclairés -->
-  <g class="lueur">
-    <rect x="62" y="200" width="98" height="264" fill="url(#fa-verre)" />
-    <rect x="168" y="200" width="98" height="264" fill="url(#fa-verre)" />
-    <rect x="318" y="200" width="234" height="264" fill="url(#fa-verre)" />
+  <g transform="translate(106 0)">
+  <!-- PORTE : le sas -->
+  <g clip-path="url(#fa-vP)">
+    <rect x="62" y="200" width="98" height="264" fill="url(#fa-sas)"/>
+    <path d="M62 440H160V464H62z" fill="#4a443d"/>
+    <path d="M70 464L120 200M92 464L142 200" stroke="#f5f1ea" stroke-opacity=".07" stroke-width="10"/>
+  </g>
+  <rect x="62" y="200" width="98" height="30" fill="#161615" opacity=".6"/>
+  <text x="111" y="222" text-anchor="middle" font-family="'Bebas Neue', 'Arial Narrow', sans-serif" font-size="19" fill="#f5f1ea">319</text>
+  <rect x="71" y="318" width="5" height="44" rx="2.5" fill="#d9b77c"/>
+
   </g>
 
-  <!-- Porte : numéro civique, poignée, seuil -->
-  <rect x="62" y="200" width="98" height="30" fill="#161615" opacity="0.55" />
-  <text x="111" y="222" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="20" fill="#f5f1ea">319</text>
-  <rect x="146" y="318" width="5" height="44" rx="2.5" fill="#161615" />
-
-  <!-- Vitrine de gauche : cartes gradées dans leur cadre de bois -->
-  <rect x="172" y="224" width="90" height="150" fill="none" stroke="#6b4a2b" stroke-width="5" />
-  {slabs.map((s) => <rect x={s.x} y={s.y} width="14" height="24" rx="1.5" fill={s.c} stroke="#f5f1ea" stroke-width="1.5" />)}
-  <rect x="168" y="388" width="98" height="76" fill="#161615" opacity="0.5" />
-
-  <!-- Grande vitrine : tablettes de bois, boîtes aux couleurs d'univers, suspensions -->
-  {
-    [352, 435, 518].map((x) => (
-      <g>
-        <path d={`M${x} 200V222`} stroke="#161615" stroke-width="1.5" />
-        <circle cx={x} cy="228" r="7" fill="#fff6dc" />
-      </g>
-    ))
-  }
-  {
-    shelves.map((s) => (
-      <g>
-        {s.boxes.map((b) => <rect x={b.x} y={s.y - b.h} width={b.w} height={b.h} rx="1.5" fill={b.c} />)}
-        <rect x="318" y={s.y} width="234" height="5" fill="#6b4a2b" />
-      </g>
-    ))
-  }
-
-  <!-- Bandeau de vinyle au bas des vitrines -->
-  <g fill="none" stroke="#f5f1ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
-    <rect x="182" y="418" width="20" height="28" rx="3" />
-    <path d="M187 427h10M187 433h10" />
-    <rect x="222" y="424" width="26" height="18" rx="2" />
-    <path d="M228 424v-5h5v5M238 424v-5h5v5" />
-    <rect x="334" y="418" width="20" height="28" rx="3" />
-    <path d="M339 427h10M339 433h10" />
-    <rect x="376" y="424" width="26" height="18" rx="2" />
-    <path d="M382 424v-5h5v5M392 424v-5h5v5" />
-    <rect x="424" y="420" width="24" height="24" rx="4" />
-    <path d="M431 427h.01M441 437h.01M436 432h.01" stroke-width="3.5" />
-    <path d="M482 418l4 9 10 1-7.5 6.5 2.5 9.5-9-5.5-9 5.5 2.5-9.5-7.5-6.5 10-1z" />
-    <rect x="516" y="418" width="20" height="28" rx="3" />
-    <path d="M521 427h10M521 433h10" />
+  <g transform="translate(-106 0)">
+  <!-- PETITE VITRINE : présentoir à tiges, mur noir -->
+  <g clip-path="url(#fa-vG)">
+    <rect x="168" y="200" width="98" height="264" fill="url(#fa-murNoir)"/>
+    <rect x="168" y="436" width="98" height="28" fill="#4a443d"/>
+    <rect x="218" y="236" width="34" height="46" fill="#1f4a5c" stroke="#6b4a2b" stroke-width="4"/>
+    <circle cx="235" cy="256" r="7" fill="#d9b77c"/>
+    <path d="M178 200V464M210 200V464" stroke="#c9a468" stroke-width="2"/>
+    <rect x="174" y="296" width="40" height="34" fill="#fff1cf" stroke="#6b4a2b" stroke-width="4"/>
+    <g>
+      <circle cx="194" cy="309" r="8" fill="#f5f1ea" stroke="#6b4a2b" stroke-width="1.5"/>
+      <circle cx="191" cy="311" r="1.8" fill="#9e2f2b"/><circle cx="196" cy="312" r="1.8" fill="#2c6a4e"/><circle cx="194" cy="307" r="1.8" fill="#5a3b7a"/><circle cx="198" cy="308" r="1.8" fill="#a5521f"/><circle cx="190" cy="306" r="1.8" fill="#1f4a5c"/>
+      <path d="M188 317h12l2 9h-16z" fill="#9e2f2b"/>
+      <rect x="192" y="320" width="4" height="3" fill="#d9b77c"/>
+    </g>
+    <rect x="174" y="372" width="40" height="4" fill="#6b4a2b"/>
+    <rect x="178" y="350" width="20" height="22" rx="1.5" fill="#2c6a4e"/>
+    <rect x="200" y="358" width="12" height="14" rx="1.5" fill="#5a3b7a"/>
   </g>
 
-  <!-- Meneaux -->
-  <path d="M160 200V464M266 200V464" stroke="#161615" stroke-width="8" />
+  </g>
+
+  <!-- GRANDE VITRINE : lounge à gauche, présentoir en hauteur au centre, table de jeu contre le mur de droite -->
+  <g clip-path="url(#fa-vD)">
+    <rect x="318" y="200" width="234" height="264" fill="#1d1b19"/>
+    <rect x="318" y="232" width="234" height="206" fill="url(#fa-murBone)"/>
+    <rect x="318" y="436" width="234" height="28" fill="#4a443d"/>
+
+    <!-- lounge : cadre, fauteuil, lampe sur pied -->
+    <rect x="330" y="252" width="60" height="58" fill="#262321" stroke="#6b4a2b" stroke-width="5"/>
+    <path d="M346 266l8-4q6 5 12 0l8 4 11 13-7 6-7-7v24h-22v-24l-7 7-7-6z" fill="#f5f1ea"/>
+    <path d="M339 279l6 6M381 279l-6 6" stroke="#1f4a5c" stroke-width="3"/>
+    <path d="M349 295h22v4h-22z" fill="#1f4a5c"/>
+    <text x="360" y="289" text-anchor="middle" font-family="'Bebas Neue', 'Arial Narrow', sans-serif" font-size="13" fill="#1f4a5c">27</text>
+    <path d="M391 320L375 436H423L409 320z" fill="url(#fa-cone)" opacity=".8"/>
+    <path d="M400 324V436M391 436h18" stroke="#161615" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M389 324l5-22h12l5 22z" fill="#161615"/>
+    <rect x="327" y="372" width="11" height="48" rx="5" fill="#173a48"/>
+    <rect x="364" y="372" width="11" height="48" rx="5" fill="#173a48"/>
+    <rect x="332" y="350" width="38" height="50" rx="10" fill="#1f4a5c"/>
+    <rect x="332" y="394" width="38" height="26" rx="5" fill="#245a70"/>
+    <path d="M333 420v16M369 420v16" stroke="#161615" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- présentoir à tiges, en hauteur, entre le lounge et la table -->
+    <path d="M420 200V464M452 200V464" stroke="#c9a468" stroke-width="2"/>
+    <rect x="416" y="246" width="40" height="34" fill="#fff1cf" stroke="#6b4a2b" stroke-width="4"/>
+    <g>
+      <rect x="422" y="266" width="28" height="7" fill="#9e2f2b"/>
+      <rect x="428" y="259" width="15" height="7" fill="#1f4a5c"/>
+      <rect x="443" y="262" width="7" height="4" fill="#a5521f"/>
+      <path d="M430 257h3v2h-3zM437 257h3v2h-3zM424 264h3v2h-3zM445 260h3v2h-3z" fill="#6b4a2b"/>
+      <circle cx="428" cy="274" r="4" fill="#161615"/><circle cx="428" cy="274" r="1.5" fill="#d9b77c"/>
+      <circle cx="444" cy="274" r="4" fill="#161615"/><circle cx="444" cy="274" r="1.5" fill="#d9b77c"/>
+    </g>
+    <rect x="416" y="322" width="40" height="4" fill="#6b4a2b"/>
+    <g stroke="#f5f1ea" stroke-width="1.5">
+      <rect x="420" y="305" width="10" height="16" rx="1.5" fill="#5a3b7a" transform="rotate(-8 425 321)"/>
+      <rect x="431" y="305" width="10" height="16" rx="1.5" fill="#2c6a4e"/>
+      <rect x="442" y="305" width="10" height="16" rx="1.5" fill="#a5521f" transform="rotate(8 447 321)"/>
+    </g>
+
+    <!-- suspension au-dessus de la table -->
+    <path d="M500 262L462 394H552V310L524 262z" fill="url(#fa-cone)"/>
+    <path d="M512 200v44" stroke="#161615" stroke-width="1.5"/>
+    <path d="M498 262l6-18h16l6 18z" fill="#161615"/>
+
+    <!-- joueur de face, derrière la table -->
+    <circle cx="490" cy="362" r="9" fill="#2b2420"/>
+    <path d="M475 396v-14q0-11 15-11t15 11v14z" fill="#2b2420"/>
+
+    <!-- table de jeu, appuyée sur le mur de droite -->
+    <rect x="462" y="394" width="90" height="7" rx="1" fill="#8a6239"/>
+    <path d="M470 401v35" stroke="#5c3f24" stroke-width="5"/>
+    <g stroke="#f5f1ea" stroke-width="1">
+      <rect x="470" y="385" width="7" height="9" rx="1" fill="#1f4a5c" transform="rotate(-10 473 390)"/>
+      <rect x="503" y="385" width="7" height="9" rx="1" fill="#2c6a4e" transform="rotate(12 506 390)"/>
+      <rect x="538" y="387" width="12" height="7" rx="1" fill="#5a3b7a"/>
+    </g>
+
+    <!-- joueur de dos, sur sa chaise -->
+    <circle cx="528" cy="372" r="9" fill="#211b17"/>
+    <path d="M514 420v-28q0-11 14-11t14 11v28z" fill="#211b17"/>
+    <path d="M513 398v38M543 398v38M513 418h30" stroke="#161615" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Bandeau de vinyle au bas des vitres -->
+  <g fill="none" stroke="#f5f1ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".95">
+    <g transform="translate(-106 0)">
+    <rect x="182" y="440" width="14" height="19" rx="2.5"/>
+    <rect x="208" y="444" width="19" height="13" rx="2"/><path d="M212 444v-4h4v4M219 444v-4h4v4"/>
+    <rect x="238" y="442" width="16" height="16" rx="3"/><path d="M243 447h.01M249 453h.01" stroke-width="3"/>
+    </g>
+    <rect x="334" y="440" width="14" height="19" rx="2.5"/>
+    <rect x="362" y="444" width="19" height="13" rx="2"/><path d="M366 444v-4h4v4M373 444v-4h4v4"/>
+    <rect x="396" y="442" width="16" height="16" rx="3"/><path d="M401 447h.01M407 453h.01M404 450h.01" stroke-width="3"/>
+    <path d="M436 440l3 6.5 7 .8-5.2 4.6 1.6 6.8-6.4-3.8-6.4 3.8 1.6-6.8-5.2-4.6 7-.8z"/>
+    <rect x="462" y="440" width="14" height="19" rx="2.5"/>
+    <rect x="490" y="444" width="19" height="13" rx="2"/><path d="M494 444v-4h4v4M501 444v-4h4v4"/>
+    <rect x="524" y="442" width="16" height="16" rx="3"/><path d="M529 447h.01M535 453h.01" stroke-width="3"/>
+  </g>
+
+  <path d="M160 200V464M266 200V464" stroke="#161615" stroke-width="8"/>
 
   <!-- Enseigne en saillie -->
-  <path d="M291 62h18" stroke="#3a3936" stroke-width="4" />
+  <path d="M291 62h18" stroke="#3a3936" stroke-width="4"/>
   <g transform="translate(306 30)">
-    <rect x="0" y="0" width="64" height="64" fill="#1c1c1c" stroke="#d9b77c" stroke-width="1.5" />
-    <image href="/assets/logo/LeRepaire_Theo_Hat_OnyxBG_v1.png" x="8" y="8" width="48" height="48" />
+    <rect width="64" height="64" fill="#1c1c1c" stroke="#d9b77c" stroke-width="1.5"/>
+    <image href="/assets/logo/LeRepaire_Theo_Hat_OnyxBG_v1.png" x="8" y="8" width="48" height="48"/>
   </g>
 
-  <!-- Trottoir et lumière des vitrines -->
-  <rect x="0" y="476" width="600" height="64" fill="#1f1f1e" />
-  <g class="lueur">
-    <path d="M62 476h98l26 64H36z" fill="url(#fa-sol)" />
-    <path d="M168 476h98l26 64H142z" fill="url(#fa-sol)" />
-    <path d="M318 476h234l34 64H284z" fill="url(#fa-sol)" />
-  </g>
-  <path d="M0 476H600" stroke="#111" stroke-width="2" />
-
-  <!-- Fondu vers le fond de page -->
-  <rect x="0" y="0" width="600" height="540" fill="url(#fa-cote)" />
+  <!-- Trottoir -->
+  <rect y="476" width="600" height="64" fill="#1f1f1e"/>
+  <path d="M62 476h98l26 64H36z" fill="url(#fa-sol)"/>
+  <path d="M168 476h98l26 64H142z" fill="url(#fa-sol)"/>
+  <path d="M318 476h234l34 64H284z" fill="url(#fa-sol)"/>
+  <path d="M0 476H600" stroke="#111" stroke-width="2"/>
+  <rect width="600" height="540" fill="url(#fa-cote)"/>
 </svg>
