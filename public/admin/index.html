@@ -7,7 +7,26 @@
     <title>Édition | Le Repaire du Collectionneur</title>
   </head>
   <body>
-    <!-- Éditeur de contenu (Decap CMS). La configuration est dans config.yml. -->
+    <!-- Éditeur de contenu (Decap CMS). La configuration est dans config.yml.
+         L'adresse de connexion suit le domaine courant : l'éditeur fonctionne donc
+         autant sur l'adresse *.pages.dev que sur lerepairemtl.com. -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
     <script src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"></script>
+    <script>
+      CMS.init({
+        config: {
+          load_config_file: true,
+          backend: {
+            name: 'github',
+            repo: 'lerepairemtl/site',
+            branch: 'v2',
+            base_url: window.location.origin,
+            auth_endpoint: '/api/auth',
+          },
+        },
+      });
+    </script>
   </body>
 </html>

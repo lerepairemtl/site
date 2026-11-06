@@ -4,9 +4,9 @@
 backend:
   name: github
   repo: lerepairemtl/site
-  branch: main
+  branch: v2
   # Authentification GitHub par les fonctions Cloudflare Pages (dossier /functions/api).
-  base_url: https://lerepairemtl.com
+  # base_url est fixé dans index.html d'après le domaine courant.
   auth_endpoint: /api/auth
   commit_messages:
     create: 'Contenu : ajout de « {{slug}} »'
