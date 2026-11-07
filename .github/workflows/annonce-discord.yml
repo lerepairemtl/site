@@ -1,0 +1,24 @@
+# À chaque publication ajoutée sur le site, un message est envoyé sur Discord.
+# Requis : le secret DISCORD_WEBHOOK_URL (Settings > Secrets and variables > Actions).
+name: Annonce Discord
+
+on:
+  push:
+    branches: [v2]
+    paths: ['src/content/nouvelles/fr/**']
+
+jobs:
+  annonce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/annonce-discord.mjs
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
