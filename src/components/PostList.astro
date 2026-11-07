@@ -17,7 +17,7 @@ const { lang, posts } = Astro.props;
         <a href={postPath(lang, slug)}>
           <Tags lang={lang} data={entry.data} />
           <h3>{entry.data.title}</h3>
-          <p>{entry.data.resume}</p>
+          {entry.data.resume && <p>{entry.data.resume}</p>}
         </a>
       </li>
     ))

@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { familles, postPath, routes, t, type Lang } from '../i18n';
-import { getPosts, monthLabel } from '../lib/posts';
+import { getPosts, monthLabel, type Post } from '../lib/posts';
 
 interface Props {
   lang: Lang;
@@ -14,14 +14,38 @@ const releases = (await getPosts(lang))
   .filter((p) => p.entry.data.categorie === 'sortie' && p.entry.data.date_sortie)
   .sort((a, b) => a.entry.data.date_sortie!.valueOf() - b.entry.data.date_sortie!.valueOf());
 
-// Regroupement par mois, en ordre chronologique.
-const months = new Map<string, typeof releases>();
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+const ym = (d: Date) => d.toISOString().slice(0, 7);
+
+// Un mois par groupe de sorties, en ordre chronologique. Le mois courant est
+// toujours présent, même vide, pour que la page ait un point d'ancrage.
+const byDay = new Map<string, Post[]>();
 for (const r of releases) {
-  const key = r.entry.data.date_sortie!.toISOString().slice(0, 7);
-  months.set(key, [...(months.get(key) ?? []), r]);
+  const k = iso(r.entry.data.date_sortie!);
+  byDay.set(k, [...(byDay.get(k) ?? []), r]);
+}
+const now = new Date();
+const thisMonth = ym(now);
+const monthKeys = new Set<string>([thisMonth, ...releases.map((r) => ym(r.entry.data.date_sortie!))]);
+const months = [...monthKeys].sort();
+
+type Cell = { day: number; key: string; items: Post[] } | null;
+function grid(key: string): Cell[] {
+  const [y, m] = key.split('-').map(Number);
+  const first = new Date(Date.UTC(y, m - 1, 1));
+  const days = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  const lead = (first.getUTCDay() + 6) % 7; // lundi = 0
+  const cells: Cell[] = Array(lead).fill(null);
+  for (let d = 1; d <= days; d++) {
+    const k = `${key}-${String(d).padStart(2, '0')}`;
+    cells.push({ day: d, key: k, items: byDay.get(k) ?? [] });
+  }
+  while (cells.length % 7) cells.push(null);
+  return cells;
 }
 const weekday = (d: Date) =>
   new Intl.DateTimeFormat(lang === 'fr' ? 'fr-CA' : 'en-CA', { weekday: 'short', timeZone: 'UTC' }).format(d);
+const monthDate = (key: string) => new Date(`${key}-01T00:00:00Z`);
 ---
 
 <Base
@@ -37,59 +61,101 @@ const weekday = (d: Date) =>
       <p>{s.releases.intro}</p>
     </header>
   </div>
-  <div class="wrap page-body">
+  <div class="wrap page-body cal-page" data-today={iso(now)} data-this-month={thisMonth}>
     {
       releases.length === 0 ? (
         <p class="empty">{s.releases.empty}</p>
       ) : (
-        [...months].map(([key, items]) => (
-          <section class="month" data-month={key}>
-            <h2>{monthLabel(items[0].entry.data.date_sortie!, lang)}</h2>
-            {items.map(({ slug, entry }) => {
-              const d = entry.data.date_sortie!;
-              return (
-                <a
-                  class="release"
-                  href={postPath(lang, slug)}
-                  data-date={d.toISOString().slice(0, 10)}
-                  data-fam={entry.data.famille}
-                >
-                  <span class="day">
-                    {d.getUTCDate()}
-                    <small>{weekday(d)}</small>
-                  </span>
-                  <span>
-                    <span class="tags">
-                      {entry.data.famille && <span class="tag fam">{familles[entry.data.famille][lang]}</span>}
-                      {entry.data.univers && <span class="meta-text">{entry.data.univers}</span>}
-                    </span>
-                    <h3>{entry.data.title}</h3>
-                    <p>{entry.data.resume}</p>
-                  </span>
-                </a>
-              );
-            })}
-          </section>
-        ))
+        <>
+          <p class="cal-toggle" hidden>
+            <button type="button" class="btn ghost" data-show={s.releases.showPast} data-hide={s.releases.hidePast}>
+              {s.releases.showPast}
+            </button>
+          </p>
+          {months.map((key) => {
+            const items = releases.filter((r) => ym(r.entry.data.date_sortie!) === key);
+            return (
+              <section class="month" data-month={key} id={`m-${key}`}>
+                <h2>
+                  {monthLabel(monthDate(key), lang)}
+                  <small class="mono">{s.releases.count(items.length)}</small>
+                </h2>
+                <div class="cal" role="grid" aria-label={monthLabel(monthDate(key), lang)}>
+                  {s.releases.weekdays.map((w) => (
+                    <div class="cal-h mono">{w}</div>
+                  ))}
+                  {grid(key).map((c) =>
+                    c === null ? (
+                      <div class="cal-c is-blank" />
+                    ) : (
+                      <div class="cal-c" data-date={c.key}>
+                        <span class="cal-d mono">{c.day}</span>
+                        {c.items.map(({ slug, entry }) => (
+                          <a class="cal-ev" href={postPath(lang, slug)} data-fam={entry.data.famille} title={entry.data.title}>
+                            {entry.data.title}
+                            {entry.data.univers && <small>{entry.data.univers}</small>}
+                          </a>
+                        ))}
+                      </div>
+                    ),
+                  )}
+                </div>
+                <div class="cal-list">
+                  {items.map(({ slug, entry }) => {
+                    const d = entry.data.date_sortie!;
+                    return (
+                      <a class="release" href={postPath(lang, slug)} data-date={iso(d)} data-fam={entry.data.famille}>
+                        <span class="day">
+                          {d.getUTCDate()}
+                          <small>{weekday(d)}</small>
+                        </span>
+                        <span>
+                          <span class="tags">
+                            {entry.data.famille && <span class="tag fam">{familles[entry.data.famille][lang]}</span>}
+                            {entry.data.univers && <span class="meta-text">{entry.data.univers}</span>}
+                          </span>
+                          <h3>{entry.data.title}</h3>
+                          {entry.data.resume && <p>{entry.data.resume}</p>}
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
+        </>
       )
     }
   </div>
 </Base>
 
 <script is:inline>
-  // Le site est statique : on estompe les sorties passées au moment de l'affichage,
-  // et on masque les mois entièrement écoulés depuis plus de 60 jours.
+  // Le site est statique : au chargement, on marque aujourd'hui, on estompe les
+  // dates passées et on replie les mois entièrement écoulés derrière un bouton.
   (function () {
-    var today = new Date().toISOString().slice(0, 10);
-    var cutoff = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
-    document.querySelectorAll('.month').forEach(function (m) {
-      var items = m.querySelectorAll('.release');
-      var allOld = true;
-      items.forEach(function (el) {
-        if (el.dataset.date < today) el.classList.add('is-past');
-        if (el.dataset.date >= cutoff) allOld = false;
-      });
-      if (allOld) m.hidden = true;
+    var page = document.querySelector('.cal-page');
+    if (!page) return;
+    var today = page.dataset.today, thisMonth = page.dataset.thisMonth;
+    var months = Array.prototype.slice.call(document.querySelectorAll('.month'));
+    var past = months.filter(function (m) { return m.dataset.month < thisMonth; });
+    document.querySelectorAll('[data-date]').forEach(function (el) {
+      if (el.dataset.date < today) el.classList.add('is-past');
+      if (el.dataset.date === today) el.classList.add('is-today');
     });
+    past.forEach(function (m) { m.hidden = true; m.classList.add('is-past-month'); });
+    var toggle = document.querySelector('.cal-toggle');
+    if (toggle && past.length) {
+      toggle.hidden = false;
+      var btn = toggle.querySelector('button'), open = false;
+      btn.addEventListener('click', function () {
+        open = !open;
+        past.forEach(function (m) { m.hidden = !open; });
+        btn.textContent = open ? btn.dataset.hide : btn.dataset.show;
+        if (open) past[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+    var cur = document.getElementById('m-' + thisMonth);
+    if (cur && location.hash === '') cur.scrollIntoView({ block: 'start' });
   })();
 </script>

@@ -27,6 +27,17 @@ export async function getPosts(lang: Lang): Promise<Post[]> {
   return posts.sort((a, b) => b.entry.data.date.valueOf() - a.entry.data.date.valueOf());
 }
 
+/** Sortie « légère » : visible dans le calendrier seulement, pas dans Nouvelles. */
+export function isCalendarOnly(post: Post) {
+  const d = post.entry.data;
+  return d.categorie === 'sortie' && !d.dans_nouvelles;
+}
+
+/** Publications du fil Nouvelles, de l'accueil et du flux RSS. */
+export async function getNews(lang: Lang): Promise<Post[]> {
+  return (await getPosts(lang)).filter((p) => !isCalendarOnly(p));
+}
+
 export function formatDate(date: Date, lang: Lang, style: 'long' | 'medium' = 'long') {
   return new Intl.DateTimeFormat(lang === 'fr' ? 'fr-CA' : 'en-CA', {
     dateStyle: style,

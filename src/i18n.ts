@@ -96,10 +96,15 @@ const fr = {
     description:
       'Calendrier des prochaines sorties de cartes sportives et de jeux de cartes à collectionner, tenu par Le Repaire du Collectionneur à Montréal.',
     heading: 'Calendrier des sorties',
-    intro: 'Les prochaines sorties qu’on surveille, par date.',
+    intro: 'Les sorties qu’on surveille, mois par mois. On garde l’historique.',
     empty: 'Le calendrier se remplit bientôt.',
     upcoming: 'À venir',
     past: 'Déjà sorties',
+    showPast: 'Afficher les mois passés',
+    hidePast: 'Masquer les mois passés',
+    today: 'Aujourd’hui',
+    weekdays: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
+    count: (n: number) => (n === 1 ? '1 sortie' : `${n} sorties`),
   },
   shop: {
     title: 'Boutique en ligne | Le Repaire du Collectionneur',
@@ -205,10 +210,15 @@ const en: typeof fr = {
     description:
       'Upcoming sports card and trading card game releases, tracked by Le Repaire du Collectionneur in Montréal.',
     heading: 'Release calendar',
-    intro: 'The upcoming releases we’re watching, by date.',
+    intro: 'The releases we’re watching, month by month. We keep the history.',
     empty: 'The calendar fills up soon.',
     upcoming: 'Upcoming',
     past: 'Already out',
+    showPast: 'Show past months',
+    hidePast: 'Hide past months',
+    today: 'Today',
+    weekdays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    count: (n: number) => (n === 1 ? '1 release' : `${n} releases`),
   },
   shop: {
     title: 'Online shop | Le Repaire du Collectionneur',

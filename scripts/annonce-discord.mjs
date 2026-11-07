@@ -32,7 +32,7 @@ for (const file of added) {
   const image = get('image');
   const embed = {
     title: get('title'),
-    description: get('resume'),
+    description: get('resume') || (get('date_sortie') ? `Sortie le ${get('date_sortie')}` : ''),
     url,
     color: 0xd9b77c,
     footer: { text: [labels[get('categorie')] ?? 'Nouvelle', get('univers')].filter(Boolean).join(' · ') },

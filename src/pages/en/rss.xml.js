@@ -1,13 +1,13 @@
 import rss from '@astrojs/rss';
 import { SITE } from '../../config';
 import { categories, postPath, t } from '../../i18n';
-import { getPosts } from '../../lib/posts';
+import { getNews } from '../../lib/posts';
 
 // Flux RSS (en). Sert aussi de source aux republications automatiques
 // (réseaux sociaux, Discord, infolettre).
 export async function GET(context) {
   const lang = 'en';
-  const posts = await getPosts(lang);
+  const posts = await getNews(lang);
   return rss({
     title: `${SITE.name} | ${t(lang).news.heading}`,
     description: t(lang).news.description,
@@ -16,7 +16,7 @@ export async function GET(context) {
       .filter((p) => !p.entry.data.draft)
       .map(({ slug, entry }) => ({
         title: entry.data.title,
-        description: entry.data.resume,
+        description: entry.data.resume ?? entry.data.title,
         pubDate: entry.data.date,
         link: postPath(lang, slug),
         categories: [categories[entry.data.categorie][lang], entry.data.univers].filter(Boolean),

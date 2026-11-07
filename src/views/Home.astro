@@ -4,7 +4,7 @@ import PostList from '../components/PostList.astro';
 import Facade from '../components/Facade.astro';
 import { SITE } from '../config';
 import { routes, t, type Lang } from '../i18n';
-import { getPosts } from '../lib/posts';
+import { getNews } from '../lib/posts';
 
 interface Props {
   lang: Lang;
@@ -13,7 +13,7 @@ const { lang } = Astro.props;
 const s = t(lang);
 const h = s.home;
 const other: Lang = lang === 'fr' ? 'en' : 'fr';
-const latest = (await getPosts(lang)).slice(0, 3);
+const latest = (await getNews(lang)).slice(0, 3);
 ---
 
 <Base lang={lang} title={h.title} description={h.description} altPath={routes.home[other]} current="home">

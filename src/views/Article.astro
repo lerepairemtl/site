@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import Tags from '../components/Tags.astro';
 import { SITE } from '../config';
 import { postPath, routes, t, type Lang } from '../i18n';
-import { formatDate, type Post } from '../lib/posts';
+import { formatDate, isCalendarOnly, type Post } from '../lib/posts';
 
 interface Props {
   lang: Lang;
@@ -16,13 +16,16 @@ const s = t(lang);
 const other: Lang = lang === 'fr' ? 'en' : 'fr';
 const { Content } = await render(entry);
 const d = entry.data;
+const description = d.resume ?? (d.date_sortie ? `${s.news.releaseOn} ${formatDate(d.date_sortie, lang)}` : d.title);
 const contentLang = fallback ? other : lang;
+// Une sortie légère vit dans le calendrier : on y renvoie plutôt qu'aux nouvelles.
+const calendarOnly = isCalendarOnly(post);
 
 const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: d.title,
-  description: d.resume,
+  description,
   datePublished: d.date.toISOString(),
   inLanguage: contentLang === 'fr' ? 'fr-CA' : 'en-CA',
   image: d.image ? new URL(d.image, SITE.url).href : undefined,
@@ -34,20 +37,20 @@ const articleLd = {
 <Base
   lang={lang}
   title={`${d.title} | ${SITE.name}`}
-  description={d.resume}
+  description={description}
   altPath={postPath(other, slug)}
-  current="news"
+  current={calendarOnly ? 'releases' : 'news'}
   ogType="article"
   ogImage={d.image}
   noindex={d.draft}
 >
   <div class="wrap">
     <article class="article" data-fam={d.famille}>
-      <a class="back" href={routes.news[lang]}>← {s.news.back}</a>
+      <a class="back" href={calendarOnly ? routes.releases[lang] : routes.news[lang]}>← {calendarOnly ? s.releases.heading : s.news.back}</a>
       <Tags lang={lang} data={d} />
       <h1 lang={fallback ? contentLang : undefined}>{d.title}</h1>
       {fallback && <p class="notice">{s.news.fallback}</p>}
-      <p class="lede" lang={fallback ? contentLang : undefined}>{d.resume}</p>
+      {d.resume && <p class="lede" lang={fallback ? contentLang : undefined}>{d.resume}</p>}
       {
         d.date_sortie && (
           <p class="release-date">

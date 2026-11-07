@@ -27,6 +27,10 @@ le site anglais affiche la version française avec une mention.
 Les flux `/rss.xml` (FR) et `/en/rss.xml` (EN) servent de source aux republications automatiques
 (réseaux sociaux, Discord, infolettre).
 
+## Sorties et calendrier
+
+Une sortie est une publication de catégorie « Sortie » avec une date de sortie. Par défaut elle est **légère** : titre = nom du produit, famille, univers, date — résumé et texte facultatifs — et elle n'apparaît que dans le calendrier (`/sorties/`), qui garde l'historique (mois passés repliés derrière un bouton). Cocher « Aussi dans Nouvelles » la publie en plus dans le fil, à l'accueil et dans le flux RSS. Toute sortie est relayée sur Discord.
+
 ## Couleurs d'univers
 
 Ajout à la palette du Brand Guide v1.4, à inscrire à la v1.5. Une teinte par famille de produits,

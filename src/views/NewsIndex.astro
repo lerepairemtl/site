@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
 import { routes, t, type Lang } from '../i18n';
-import { getPosts } from '../lib/posts';
+import { getNews } from '../lib/posts';
 
 interface Props {
   lang: Lang;
@@ -10,7 +10,7 @@ interface Props {
 const { lang } = Astro.props;
 const s = t(lang);
 const other: Lang = lang === 'fr' ? 'en' : 'fr';
-const posts = await getPosts(lang);
+const posts = await getNews(lang);
 ---
 
 <Base lang={lang} title={s.news.title} description={s.news.description} altPath={routes.news[other]} current="news">
