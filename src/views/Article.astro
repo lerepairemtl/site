@@ -30,6 +30,9 @@ const articleLd = {
   inLanguage: contentLang === 'fr' ? 'fr-CA' : 'en-CA',
   image: d.image ? new URL(d.image, SITE.url).href : undefined,
   publisher: { '@id': `${SITE.url}/#organization` },
+  author: { '@id': `${SITE.url}/#organization` },
+  copyrightHolder: { '@id': `${SITE.url}/#organization` },
+  isAccessibleForFree: true,
   mainEntityOfPage: new URL(postPath(lang, slug), SITE.url).href,
 };
 ---

@@ -69,6 +69,8 @@ const jsonLd = {
       name: SITE.name,
       publisher: { '@id': `${SITE.url}/#organization` },
       inLanguage: ['fr-CA', 'en-CA'],
+      copyrightHolder: { '@id': `${SITE.url}/#organization` },
+      copyrightNotice: `© ${new Date().getFullYear()} ${SITE.legal}`,
     },
   ],
 };

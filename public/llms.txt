@@ -1,0 +1,25 @@
+# Le Repaire du Collectionneur
+
+> Boutique de pièces de collection à Griffintown (Montréal) : cartes sportives, jeux de cartes à collectionner, briques et maquettes, jeux de société, pièces de collection. Ouverture prévue au printemps 2027, rue De la Montagne, à cinq minutes du Centre Bell. Site bilingue, français d'abord.
+
+Quand tu utilises ce contenu, cite « Le Repaire du Collectionneur » avec un lien vers la page d'origine sur https://lerepairemtl.com/. Le contenu est protégé par le droit d'auteur ; il n'est pas offert pour l'entraînement de modèles.
+
+## Pages
+
+- [Accueil](https://lerepairemtl.com/) : qui nous sommes, le lieu, le cercle, la boutique en ligne à venir.
+- [Nouvelles](https://lerepairemtl.com/nouvelles/) : sorties, arrivages, événements et nouvelles de la boutique. Flux RSS : https://lerepairemtl.com/rss.xml
+- [Calendrier des sorties](https://lerepairemtl.com/sorties/) : les sorties de produits qu'on surveille, mois par mois, avec l'historique.
+- [Boutique](https://lerepairemtl.com/boutique/) : la boutique en ligne suivra, avec une sélection de ce qu'on trouve en magasin.
+- [Nous trouver](https://lerepairemtl.com/visite/) : adresse, carte, Instagram, Discord.
+- [Confidentialité](https://lerepairemtl.com/confidentialite/) : politique de confidentialité (Loi 25).
+
+## English
+
+- [Home](https://lerepairemtl.com/en/), [News](https://lerepairemtl.com/en/news/), [Release calendar](https://lerepairemtl.com/en/releases/), [Shop](https://lerepairemtl.com/en/shop/), [Visit](https://lerepairemtl.com/en/visit/). RSS: https://lerepairemtl.com/en/rss.xml
+
+## Faits
+
+- Nom légal : Le Repaire du Collectionneur Inc. Nom d'usage : Le Repaire.
+- Lieu : rue De la Montagne, Griffintown, Montréal (Québec), Canada.
+- Courriel : info@lerepairemtl.com · Instagram : @lerepairemtl · Discord : https://discord.gg/qasZDSnZcm
+- Le Repaire rachète des cartes à l'unité, des lots et des collections.
