@@ -10,7 +10,7 @@ export const SITE = {
   instagram: 'https://www.instagram.com/lerepairemtl',
   instagramHandle: '@lerepairemtl',
   // Lien d'invitation Discord (membres fondateurs). Vide = bouton masqué.
-  discord: '',
+  discord: 'https://discord.gg/qasZDSnZcm',
   address: {
     street: 'rue De la Montagne',
     // Numéro civique volontairement omis sur le site (décision de J-F, nov. 2026).

@@ -40,7 +40,7 @@ const jsonLd = {
       url: SITE.url,
       logo: abs('/assets/icon-512.png'),
       email: SITE.email,
-      sameAs: [SITE.instagram],
+      sameAs: [SITE.instagram, SITE.discord].filter(Boolean),
     },
     {
       '@type': ['Store', 'HobbyShop'],
