@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-11-08T22:17:20.507Z",
+  "genere_le": "2026-11-08T23:06:45.447Z",
   "heures": [
     {
       "jour": 1,
@@ -45,34 +45,5 @@
     }
   ],
   "exceptions": [],
-  "evenements": [
-    {
-      "slug": "2026-11-08-test-release",
-      "titre": "test release",
-      "categorie": "tables",
-      "categorie_nom": "Tables",
-      "famille": null,
-      "univers": null,
-      "date": "2026-11-08",
-      "date_fin": null,
-      "debut": null,
-      "fin": null,
-      "lieu": "boutique",
-      "lieu_nom": null,
-      "lieu_adresse": null,
-      "description": null,
-      "image": null,
-      "prix_entree": null,
-      "prix_membre": null,
-      "prix_inclus": null,
-      "places": null,
-      "places_restantes": null,
-      "inscription": "aucune",
-      "inscription_lien": null,
-      "complet": false,
-      "annule": false,
-      "association": null,
-      "tiers": []
-    }
-  ]
+  "evenements": []
 }
