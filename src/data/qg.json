@@ -1,6 +1,78 @@
 {
-  "genere_le": null,
-  "heures": [],
+  "genere_le": "2026-11-08T22:17:20.507Z",
+  "heures": [
+    {
+      "jour": 1,
+      "ouvert": false,
+      "debut": null,
+      "fin": null
+    },
+    {
+      "jour": 2,
+      "ouvert": false,
+      "debut": null,
+      "fin": null
+    },
+    {
+      "jour": 3,
+      "ouvert": true,
+      "debut": "12:00",
+      "fin": "20:00"
+    },
+    {
+      "jour": 4,
+      "ouvert": true,
+      "debut": "12:00",
+      "fin": "20:00"
+    },
+    {
+      "jour": 5,
+      "ouvert": true,
+      "debut": "12:00",
+      "fin": "21:00"
+    },
+    {
+      "jour": 6,
+      "ouvert": true,
+      "debut": "10:00",
+      "fin": "20:00"
+    },
+    {
+      "jour": 7,
+      "ouvert": true,
+      "debut": "11:00",
+      "fin": "17:00"
+    }
+  ],
   "exceptions": [],
-  "evenements": []
+  "evenements": [
+    {
+      "slug": "2026-11-08-test-release",
+      "titre": "test release",
+      "categorie": "tables",
+      "categorie_nom": "Tables",
+      "famille": null,
+      "univers": null,
+      "date": "2026-11-08",
+      "date_fin": null,
+      "debut": null,
+      "fin": null,
+      "lieu": "boutique",
+      "lieu_nom": null,
+      "lieu_adresse": null,
+      "description": null,
+      "image": null,
+      "prix_entree": null,
+      "prix_membre": null,
+      "prix_inclus": null,
+      "places": null,
+      "places_restantes": null,
+      "inscription": "aucune",
+      "inscription_lien": null,
+      "complet": false,
+      "annule": false,
+      "association": null,
+      "tiers": []
+    }
+  ]
 }
