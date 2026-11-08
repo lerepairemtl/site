@@ -7,6 +7,7 @@ export const routes = {
   home: { fr: '/', en: '/en/' },
   news: { fr: '/nouvelles/', en: '/en/news/' },
   releases: { fr: '/sorties/', en: '/en/releases/' },
+  events: { fr: '/evenements/', en: '/en/events/' },
   shop: { fr: '/boutique/', en: '/en/shop/' },
   visit: { fr: '/nous-trouver/', en: '/en/visit/' },
   privacy: { fr: '/confidentialite/', en: '/en/privacy/' },
@@ -34,7 +35,7 @@ export const familles = {
 export type Famille = keyof typeof familles;
 
 const fr = {
-  nav: { news: 'Nouvelles', releases: 'Sorties', shop: 'Boutique', visit: 'Nous trouver' },
+  nav: { news: 'Nouvelles', releases: 'Sorties', events: 'Événements', shop: 'Boutique', visit: 'Nous trouver' },
   navLabel: 'Navigation principale',
   langSwitch: 'English',
   langSwitchShort: 'EN',
@@ -114,6 +115,24 @@ const fr = {
     soon: 'La boutique en ligne s’en vient.',
     text: 'On y proposera une sélection de ce qu’on trouve en magasin. D’ici là, les nouvelles se passent ici.',
   },
+  events: {
+    title: 'Événements',
+    description: 'Soirées de jeux, tournois, prereleases, signatures et rencontres au Repaire, à Griffintown.',
+    heading: 'Événements',
+    intro: 'Ce qui se passe en boutique — et parfois ailleurs. On garde ça simple : la date, l’heure, ce qu’il faut savoir.',
+    empty: 'Les premiers événements seront annoncés à l’approche de l’ouverture.',
+    inStore: 'En boutique',
+    online: 'En ligne',
+    free: 'Gratuit',
+    members: 'membres',
+    placesLeft: (n: number) => (n === 0 ? 'Complet' : n === 1 ? '1 place restante' : `${n} places restantes`),
+    full: 'Complet',
+    register: 'S’inscrire',
+    registerOnSite: 'Inscription sur place',
+    registerContact: 'Inscription par courriel ou en boutique',
+    with: 'Avec',
+    included: 'Inclus',
+  },
   visit: {
     title: 'Nous trouver | Le Repaire du Collectionneur',
     description:
@@ -123,6 +142,9 @@ const fr = {
     addressLabel: 'Adresse',
     hoursLabel: 'Heures d’ouverture',
     hours: 'Annoncées à l’ouverture, au printemps 2027.',
+    closed: 'Fermé',
+    exceptionsLabel: 'À noter',
+    days: ['', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
     contactLabel: 'Nous écrire',
     directions: 'Voir l’itinéraire',
   },
@@ -148,7 +170,7 @@ const fr = {
 };
 
 const en: typeof fr = {
-  nav: { news: 'News', releases: 'Releases', shop: 'Shop', visit: 'Visit' },
+  nav: { news: 'News', releases: 'Releases', events: 'Events', shop: 'Shop', visit: 'Visit' },
   navLabel: 'Main navigation',
   langSwitch: 'Français',
   langSwitchShort: 'FR',
@@ -227,6 +249,24 @@ const en: typeof fr = {
     soon: 'The online shop is on its way.',
     text: 'It will carry a selection of what’s in store. Until then, the news lives here.',
   },
+  events: {
+    title: 'Events',
+    description: 'Game nights, tournaments, prereleases, signings and meetups at Le Repaire, in Griffintown.',
+    heading: 'Events',
+    intro: 'What’s happening in the shop — and sometimes elsewhere. We keep it simple: the date, the time, what you need to know.',
+    empty: 'The first events will be announced as the opening approaches.',
+    inStore: 'In store',
+    online: 'Online',
+    free: 'Free',
+    members: 'members',
+    placesLeft: (n: number) => (n === 0 ? 'Full' : n === 1 ? '1 spot left' : `${n} spots left`),
+    full: 'Full',
+    register: 'Register',
+    registerOnSite: 'Register in store',
+    registerContact: 'Register by email or in store',
+    with: 'With',
+    included: 'Included',
+  },
   visit: {
     title: 'Visit | Le Repaire du Collectionneur',
     description:
@@ -236,6 +276,9 @@ const en: typeof fr = {
     addressLabel: 'Address',
     hoursLabel: 'Opening hours',
     hours: 'Announced at opening, in spring 2027.',
+    closed: 'Closed',
+    exceptionsLabel: 'Please note',
+    days: ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     contactLabel: 'Write to us',
     directions: 'Get directions',
   },

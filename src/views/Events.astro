@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { familles, routes, t, type Lang } from '../i18n';
+import { evenementsAVenir, fmtHeure, fmtPrix } from '../lib/qg';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto' }).format(new Date());
+const evs = evenementsAVenir(today);
+const loc = lang === 'fr' ? 'fr-CA' : 'en-CA';
+const d0 = (x: string) => new Date(`${x}T00:00:00Z`);
+const monthLabel = (x: string) => new Intl.DateTimeFormat(loc, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d0(x));
+const weekday = (x: string) => new Intl.DateTimeFormat(loc, { weekday: 'short', timeZone: 'UTC' }).format(d0(x));
+const longDate = (x: string) => new Intl.DateTimeFormat(loc, { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(d0(x));
+const mois = [...new Set(evs.map((e) => e.date.slice(0, 7)))];
+const famKey = (f: string | null) => (f && f in familles ? (f as keyof typeof familles) : null);
+const jsonLd = evs.slice(0, 20).map((e) => ({
+  '@type': 'Event', name: e.titre, startDate: e.debut ? `${e.date}T${e.debut}:00-05:00` : e.date, endDate: e.fin ? `${e.date_fin ?? e.date}T${e.fin}:00-05:00` : undefined,
+  eventStatus: e.annule ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
+  eventAttendanceMode: e.lieu === 'en_ligne' ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode',
+  location: e.lieu === 'exterieur' ? { '@type': 'Place', name: e.lieu_nom ?? undefined, address: e.lieu_adresse ?? undefined } : { '@type': 'Place', name: SITE.name, address: { '@type': 'PostalAddress', streetAddress: `${SITE.address.number}, ${SITE.address.street}`, addressLocality: SITE.address.city, addressRegion: SITE.address.region, postalCode: SITE.address.postal, addressCountry: SITE.address.country } },
+  description: e.description ?? undefined, image: e.image ?? undefined,
+  offers: e.prix_entree != null ? { '@type': 'Offer', price: e.prix_entree, priceCurrency: 'CAD', availability: e.complet ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock' } : undefined,
+  organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+}));
+---
+<Base lang={lang} title={s.events.title} description={s.events.description} altPath={routes.events[other]} current="events">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{s.events.heading}</h1>
+      <p>{s.events.intro}</p>
+    </header>
+  </div>
+  <div class="wrap page-body">
+    {evs.length === 0 ? <p class="empty">{s.events.empty}</p> : mois.map((m) => (
+      <section class="month">
+        <h2>{monthLabel(`${m}-01`)}</h2>
+        {evs.filter((e) => e.date.startsWith(m)).map((e) => (
+          <article class="release ev" data-fam={famKey(e.famille) ?? undefined} data-cat={e.categorie}>
+            <span class="day">{d0(e.date).getUTCDate()}<small>{weekday(e.date)}</small></span>
+            <span>
+              <span class="tags">
+                <span class="tag">{e.categorie_nom}</span>
+                {famKey(e.famille) && <span class="tag fam">{familles[famKey(e.famille)!][lang]}</span>}
+                {e.univers && <span class="meta-text">{e.univers}</span>}
+                {e.association && <span class="meta-text">· {e.association}</span>}
+              </span>
+              <h3>{e.titre}</h3>
+              <p class="meta-text ev-when">
+                {longDate(e.date)}{e.date_fin && e.date_fin !== e.date ? ` – ${longDate(e.date_fin)}` : ''}{e.debut ? ` · ${fmtHeure(e.debut, lang)}${e.fin ? ` – ${fmtHeure(e.fin, lang)}` : ''}` : ''}
+                {' · '}{e.lieu === 'boutique' ? s.events.inStore : e.lieu === 'en_ligne' ? s.events.online : e.lieu_nom ?? ''}{e.lieu === 'exterieur' && e.lieu_adresse ? `, ${e.lieu_adresse}` : ''}
+              </p>
+              {e.description && <p>{e.description}</p>}
+              <p class="ev-foot">
+                <span>{e.prix_entree == null || e.prix_entree === 0 ? s.events.free : <>{fmtPrix(e.prix_entree, lang)}{e.prix_membre != null && e.prix_membre !== e.prix_entree ? <span class="meta-text"> · {fmtPrix(e.prix_membre, lang)} {s.events.members}</span> : null}</>}</span>
+                {e.prix_inclus && <span class="meta-text">{s.events.included} : {e.prix_inclus}</span>}
+                {e.places != null && <span class:list={['meta-text', { full: e.complet || e.places_restantes === 0 }]}>{e.complet ? s.events.full : s.events.placesLeft(e.places_restantes ?? 0)}</span>}
+                {!e.complet && e.inscription === 'lien' && e.inscription_lien && <a class="btn" href={e.inscription_lien} rel="noopener">{s.events.register}</a>}
+                {!e.complet && e.inscription === 'sur_place' && <span class="meta-text">{s.events.registerOnSite}</span>}
+                {!e.complet && e.inscription === 'en_ligne' && <a class="btn ghost" href={`mailto:${SITE.email}?subject=${encodeURIComponent(e.titre)}`}>{s.events.registerContact}</a>}
+              </p>
+              {e.tiers.length > 0 && <p class="meta-text">{s.events.with} {e.tiers.map((x) => x.nom).join(', ')}</p>}
+            </span>
+          </article>
+        ))}
+      </section>
+    ))}
+  </div>
+  {evs.length > 0 && <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': jsonLd })} />}
+</Base>

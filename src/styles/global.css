@@ -834,3 +834,13 @@ main {
     transition: none !important;
   }
 }
+
+/* Événements et heures d'ouverture (données publiées par le QG) */
+.ev-when { margin: 4px 0 8px; }
+.ev-foot { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 10px 0 0; font-weight: 600; }
+.ev-foot .full { color: var(--grenat); }
+.ev-foot .btn { padding: 9px 14px; font-size: 14px; }
+.release.ev .tag:not(.fam) { border-color: var(--champagne); color: var(--champagne); }
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; margin: 0 0 12px; }
+.hours dt { color: var(--text-soft); }
+.hours dd { margin: 0; }
