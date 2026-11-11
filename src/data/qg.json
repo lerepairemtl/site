@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-11-08T23:06:45.447Z",
+  "genere_le": "2026-11-11T00:00:53.404Z",
   "heures": [
     {
       "jour": 1,
@@ -15,33 +15,33 @@
     },
     {
       "jour": 3,
-      "ouvert": true,
-      "debut": "12:00",
-      "fin": "20:00"
+      "ouvert": false,
+      "debut": null,
+      "fin": null
     },
     {
       "jour": 4,
-      "ouvert": true,
-      "debut": "12:00",
-      "fin": "20:00"
+      "ouvert": false,
+      "debut": null,
+      "fin": null
     },
     {
       "jour": 5,
-      "ouvert": true,
-      "debut": "12:00",
-      "fin": "21:00"
+      "ouvert": false,
+      "debut": null,
+      "fin": null
     },
     {
       "jour": 6,
-      "ouvert": true,
-      "debut": "10:00",
-      "fin": "20:00"
+      "ouvert": false,
+      "debut": null,
+      "fin": null
     },
     {
       "jour": 7,
-      "ouvert": true,
-      "debut": "11:00",
-      "fin": "17:00"
+      "ouvert": false,
+      "debut": null,
+      "fin": null
     }
   ],
   "exceptions": [],
